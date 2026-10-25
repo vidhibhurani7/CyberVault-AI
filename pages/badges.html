@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Achievement Badges – CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .badge-card {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      background: var(--card);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-card.earned {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px rgba(0,212,255,0.2);
+    }
+    .badge-card.locked { opacity: 0.45; filter: grayscale(1); }
+    .badge-card:not(.locked):hover { transform: translateY(-6px); box-shadow: var(--glow); }
+    .badge-icon { font-size: 3.5rem; margin-bottom: 0.75rem; display: block; }
+    .badge-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .badge-card p { color: var(--text-muted); font-size: 0.83rem; margin-bottom: 0.75rem; line-height: 1.5; }
+    .badge-status { font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 50px; display: inline-block; }
+    .status-earned { background: rgba(0,255,179,0.15); color: var(--accent2); }
+    .status-locked { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+    .badge-card.earned::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 14px;
+      color: var(--accent2);
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+    .progress-summary { padding: 2rem; text-align: center; margin-bottom: 3rem; }
+    .big-progress { font-size: 3rem; font-weight: 900; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+	  <li><a href="badges.html" class="active">Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-medal"></i> Achievements</div>
+    <h1>Achievement <span class="accent">Badges</span></h1>
+    <p>Track your cybersecurity learning journey through achievement badges and platform activities.</p>
+  </section>
+
+  <div class="section" style="max-width:1100px">
+  
+	<div class="glass" style="padding:2rem;margin-bottom:2rem;text-align:center">
+  <h3 style="margin-bottom:1rem">🏅 How Badges Work</h3>
+
+  <p style="color:var(--text-muted)">
+    Complete learning modules, use security tools,
+    analyze threats, interact with CyberVault AI,
+    and pass quizzes to unlock achievement badges.
+  </p>
+</div>
+  
+    <!-- PROGRESS -->
+    <div class="progress-summary glass">
+      <div class="big-progress" id="earnedCount">0</div>
+      <p style="color:var(--text-muted);margin-bottom:0.25rem">badges earned out of <strong id="totalCount">0</strong></p>
+      <div class="strength-bar-wrap" style="max-width:400px;margin:1rem auto 0"><div class="strength-bar" id="badgeProgressBar"></div></div>
+    </div>
+
+    <!-- BADGES -->
+    <div class="section-header">
+      <h2>All <span class="accent">Badges</span></h2>
+      <p>Explore CyberVault AI and complete cybersecurity activities to qualify for achievement badges.</p>
+    </div>
+
+    <div class="badge-grid" id="badgeGrid"></div>
+
+    <!-- RESET -->
+    <div style="text-align:center;margin-top:2rem">
+      <button class="btn btn-outline" onclick="resetBadges()" style="font-size:0.85rem"><i class="fas fa-redo"></i> Reset Badges</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom"><p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const BADGES = [
+      {
+        id: 'cyber_beginner',
+        icon: '🛡️',
+        name: 'Cyber Beginner',
+        desc: 'Complete your first cybersecurity quiz and start your security journey.',
+        howTo: 'Complete any quiz in the Quiz Center',
+        link: 'quiz.html',
+        linkText: 'Go to Quiz Center',
+        color: '#00D4FF'
+      },
+      {
+        id: 'threat_hunter',
+        icon: '🔍',
+        name: 'Threat Hunter',
+        desc: 'Use the Threat Analyzer to investigate a suspicious email or URL.',
+        howTo: 'Analyze an email or URL in the Threat Analyzer',
+        link: 'threat.html',
+        linkText: 'Go to Threat Analyzer',
+        color: '#FF6B6B'
+      },
+      {
+        id: 'password_master',
+        icon: '🔐',
+        name: 'Password Master',
+        desc: 'Use the password strength checker and generate a secure password.',
+        howTo: 'Use Password Checker and Generator in Security Tools',
+        link: 'tools.html',
+        linkText: 'Go to Security Tools',
+        color: '#FFC832'
+      },
+      {
+        id: 'cyber_defender',
+        icon: '🌐',
+        name: 'Cyber Defender',
+        desc: 'Complete a full learning module in the Learning Center.',
+        howTo: 'Open and read any module in the Learning Center',
+        link: 'learning.html',
+        linkText: 'Go to Learning Center',
+        color: '#A855F7'
+      },
+      {
+        id: 'knowledge_seeker',
+        icon: '🤖',
+        name: 'Knowledge Seeker',
+        desc: 'Ask the AI Security Assistant at least 3 cybersecurity questions.',
+        howTo: 'Ask 3 questions in the AI Security Assistant',
+        link: 'assistant.html',
+        linkText: 'Go to AI Assistant',
+        color: '#00FFB3'
+      },
+      {
+        id: 'security_champion',
+        icon: '🏆',
+        name: 'Security Champion',
+        desc: 'Score 100% on any cybersecurity quiz. Ultimate knowledge achieved!',
+        howTo: 'Score 10/10 on any quiz',
+        link: 'quiz.html',
+        linkText: 'Attempt a Quiz',
+        color: '#FFD700'
+      },
+      {
+        id: 'risk_assessor',
+        icon: '📊',
+        name: 'Risk Assessor',
+        desc: 'Complete the full Cyber Risk Assessment and get your security score.',
+        howTo: 'Complete all questions in the Risk Score assessment',
+        link: 'threat.html',
+        linkText: 'Take Risk Assessment',
+        color: '#00D4FF'
+      },
+      {
+        id: 'news_watcher',
+        icon: '📰',
+        name: 'Threat Intelligence Analyst',
+        desc: 'Search for a CVE vulnerability in the Cyber News Hub.',
+        howTo: 'Search for any CVE in the Cyber News Hub',
+        link: 'news.html',
+        linkText: 'Go to Cyber News',
+        color: '#FF6B6B'
+      },
+      {
+        id: 'checklist_hero',
+        icon: '✅',
+        name: 'Security Checklist Hero',
+        desc: 'Complete 100% of the Personal Security Checklist.',
+        howTo: 'Check all items in the Security Checklist tool',
+        link: 'tools.html',
+        linkText: 'Go to Security Checklist',
+        color: '#00FFB3'
+      },
+      {
+        id: 'certified',
+        icon: '🎓',
+        name: 'CyberVault Certified',
+        desc: 'Earn 3 or more quiz certificates on the platform.',
+        howTo: 'Complete all 3 quizzes with 70%+ score',
+        link: 'quiz.html',
+        linkText: 'Take All Quizzes',
+        color: '#A855F7'
+      }
+    ];
+
+    function loadBadges() {
+  return JSON.parse(localStorage.getItem('cvai_badges') || '{}');
+}
+
+function saveBadges(badges) {
+  localStorage.setItem('cvai_badges', JSON.stringify(badges));
+}
+
+    function renderBadges() {
+      const earned = loadBadges();
+      const grid = document.getElementById('badgeGrid');
+      let earnedCount = 0;
+      grid.innerHTML = BADGES.map(b => {
+        const isEarned = !!earned[b.id];
+        if (isEarned) earnedCount++;
+        return `
+        <div class="badge-card ${isEarned ? 'earned' : 'locked'}">
+          <span class="badge-icon">${b.icon}</span>
+          <h3>${b.name}</h3>
+          <p>${b.desc}</p>
+          <p style="font-size:0.78rem;color:var(--accent);margin-bottom:0.75rem"><i class="fas fa-info-circle"></i> ${b.howTo}</p>
+          ${isEarned
+            ? `<span class="badge-status status-earned">🏅 Earned!</span>`
+            : `<a href="${b.link}" class="btn btn-outline" style="font-size:0.78rem;padding:0.4rem 1rem">Earn Now →</a>`
+          }
+        </div>`;
+      }).join('');
+
+      document.getElementById('earnedCount').textContent = earnedCount;
+      document.getElementById('totalCount').textContent = BADGES.length;
+      const pct = Math.round((earnedCount / BADGES.length) * 100);
+      const bar = document.getElementById('badgeProgressBar');
+      bar.style.width = pct + '%';
+      bar.style.background = pct >= 70 ? 'var(--accent2)' : pct >= 40 ? 'var(--accent)' : '#ffc832';
+    }
+
+    
+
+    window.resetBadges = function() {
+      if (confirm('Reset all badges? This cannot be undone.')) {
+        localStorage.removeItem('cvai_badges');
+        renderBadges();
+      }
+    };
+
+    // Demo: allow clicking any locked badge to earn it
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('.badge-card.locked');
+
+  if (card && e.target.tagName !== 'A') {
+    const idx = Array.from(
+      document.querySelectorAll('.badge-card')
+    ).indexOf(card);
+
+    if (idx >= 0) {
+      const badge = BADGES[idx];
+
+      if (badge) {
+        const earned = loadBadges();
+
+        earned[badge.id] = Date.now();
+
+        saveBadges(earned);
+
+        renderBadges();
+      }
+    }
+  }
+});
+
+window.resetBadges = function() {
+  if (confirm('Reset all badges? This cannot be undone.')) {
+    localStorage.removeItem('cvai_badges');
+    renderBadges();
+  }
+};
+
+renderBadges();
+</script>
+
+</body>
+</html>

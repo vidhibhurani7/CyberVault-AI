@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learning Center - CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html" class="active">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="badges.html"> Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-graduation-cap"></i> Learn Cybersecurity</div>
+    <h1>Learning <span class="accent">Center</span></h1>
+    <p>Master cybersecurity from the ground up. From ethical hacking to cloud security, all in one place.</p>
+  </section>
+
+  <div class="section" id="courseGrid">
+    <div class="section-header">
+      <h2>Choose Your <span class="accent">Learning Path</span></h2>
+      <p>Select a topic to start your cybersecurity education journey</p>
+    </div>
+    <div class="learning-grid" id="learningGrid"></div>
+  </div>
+
+  <!-- LESSON VIEW -->
+  <div class="section lesson-detail" id="lessonView" style="max-width:900px">
+    <button class="btn btn-outline mb2" onclick="backToCourses()"><i class="fas fa-arrow-left"></i> Back to Courses</button>
+    <div id="lessonContent"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom"><p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const courses = [
+      {
+        id: 'phishing', icon: '🎣', title: 'Phishing & Social Engineering',
+        level: 'Beginner', duration: '30 min', desc: 'Learn how attackers manipulate psychology to steal credentials and data.',
+        topics: ['Email Phishing', 'Spear Phishing', 'Smishing', 'Vishing', 'Pretexting', 'Baiting'],
+        content: `
+          <h2 style="margin-bottom:1rem">🎣 Phishing & Social Engineering</h2>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem">
+            <span class="topic-pill">🟢 Beginner</span>
+            <span class="topic-pill">⏱️ 30 min</span>
+            <span class="topic-pill">📖 Interactive</span>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">📌 What is Phishing?</h3>
+            <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem">
+              Phishing is one of the most common cyberattacks. It involves attackers impersonating trusted sources to trick victims into revealing sensitive information or clicking malicious links.
+            </p>
+            <p style="color:var(--text-muted);line-height:1.8">
+              According to IBM's 2023 Cost of Data Breach Report, phishing is the #1 cause of data breaches, responsible for <strong style="color:var(--accent)">90% of all cyberattacks</strong>.
+            </p>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">🎯 Types of Phishing Attacks</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem">
+              ${[
+                {t:'Email Phishing', d:'Mass emails impersonating banks, PayPal, or tech companies', c:'#ff6b6b'},
+                {t:'Spear Phishing', d:'Targeted attack on a specific person using personal details', c:'#ffc832'},
+                {t:'Whaling', d:'Targeting high-level executives (CEOs, CFOs)', c:'#a855f7'},
+                {t:'Smishing', d:'SMS text message phishing attacks', c:'#00D4FF'},
+                {t:'Vishing', d:'Voice call phishing, fake tech support, IRS, etc.', c:'#00ffb3'},
+                {t:'Clone Phishing', d:'Copying a real email and replacing links with malicious ones', c:'#ff6b6b'}
+              ].map(i => `<div style="padding:1rem;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid ${i.c}">
+                <h4 style="color:${i.c};margin-bottom:0.35rem">${i.t}</h4>
+                <p style="color:var(--text-muted);font-size:0.85rem">${i.d}</p>
+              </div>`).join('')}
+            </div>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">🔍 How to Identify Phishing</h3>
+            <ul style="list-style:none">
+              ${['Sender email doesn\'t match the company domain (e.g., support@paypa1.com)','Urgent or threatening language ("Act NOW or your account will be closed!")','Generic greetings ("Dear Customer" instead of your name)','Suspicious or shortened links that don\'t match the stated destination','Poor grammar, spelling mistakes, and unusual formatting','Requests for sensitive information (passwords, credit cards, SSN)','Unexpected attachments, especially .zip, .exe, .docx files'].map(i => `
+              <li style="display:flex;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);color:var(--text-muted);font-size:0.9rem">
+                <span style="color:var(--accent3);flex-shrink:0">⚠️</span>${i}
+              </li>`).join('')}
+            </ul>
+          </div>
+          <div class="glass" style="padding:2rem">
+            <h3 style="color:var(--accent2);margin-bottom:1rem">🛡️ Defense Strategies</h3>
+            ${['Enable email filtering and anti-spam solutions','Never click links in emails, visit websites directly by typing the URL','Use Multi-Factor Authentication (MFA) so stolen passwords aren\'t enough','Report phishing emails to your IT team and email provider','Use browser extensions like Netcraft or PhishDetector','Attend regular security awareness training'].map(i => `
+            <div style="display:flex;gap:0.75rem;align-items:flex-start;padding:0.6rem 0;border-bottom:1px solid var(--border)">
+              <span style="color:var(--accent2);flex-shrink:0">✅</span>
+              <p style="color:var(--text-muted);font-size:0.9rem">${i}</p>
+            </div>`).join('')}
+          </div>
+          <div style="text-align:center;margin-top:2rem">
+            <a href="quiz.html" class="btn btn-primary"><i class="fas fa-trophy"></i> Test Your Knowledge</a>
+          </div>`
+      },
+      {
+        id: 'network', icon: '🌐', title: 'Network Security',
+        level: 'Intermediate', duration: '45 min', desc: 'Understand firewalls, VPNs, IDS/IPS, network protocols, and attack vectors.',
+        topics: ['Firewalls', 'VPN', 'IDS/IPS', 'DMZ', 'Port Scanning', 'MITM Attacks'],
+        content: `
+          <h2 style="margin-bottom:1rem">🌐 Network Security</h2>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem">
+            <span class="topic-pill">🟡 Intermediate</span><span class="topic-pill">⏱️ 45 min</span>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Network Security Fundamentals</h3>
+            <p style="color:var(--text-muted);line-height:1.8">Network security protects the integrity, confidentiality, and availability of data as it travels across or is stored in networked systems.</p>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Key Concepts</h3>
+            ${[
+              {t:'🔥 Firewall', d:'A network security device that monitors and controls incoming/outgoing traffic based on predefined rules. Types: packet-filtering, stateful, next-generation (NGFW).'},
+              {t:'🌐 VPN', d:'Creates an encrypted tunnel for secure remote access. Types: SSL VPN (remote access) and IPSec VPN (site-to-site). Hides IP and encrypts traffic.'},
+              {t:'🔍 IDS/IPS', d:'Intrusion Detection System (IDS) detects threats. Intrusion Prevention System (IPS) actively blocks them. Key difference: IDS alerts, IPS acts.'},
+              {t:'🏰 DMZ', d:'Demilitarized Zone, a network segment between internal trusted network and the internet, hosting public-facing services like web servers.'},
+              {t:'🕵️ Port Scanning', d:'Used by both defenders (network discovery) and attackers (reconnaissance). Tools: nmap. Common ports: 80 (HTTP), 443 (HTTPS), 22 (SSH), 3389 (RDP).'}
+            ].map(i => `<div style="padding:1.25rem;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid var(--accent);margin-bottom:0.75rem">
+              <h4 style="margin-bottom:0.35rem">${i.t}</h4>
+              <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.6">${i.d}</p>
+            </div>`).join('')}
+          </div>
+          <div class="glass" style="padding:2rem">
+            <h3 style="color:var(--accent3);margin-bottom:1rem">⚠️ Common Network Attacks</h3>
+            ${['Man-in-the-Middle (MITM)  Intercepting communications between two parties','DDoS (Distributed Denial of Service), Flooding servers with traffic to crash them','ARP Poisoning, Linking attacker\'s MAC address to legitimate IP','DNS Spoofing, Corrupting DNS cache to redirect users to malicious sites','Packet Sniffing,  Capturing unencrypted network traffic'].map(i => `
+            <div style="display:flex;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-muted)">
+              <span style="color:var(--accent3)">⚡</span>${i}
+            </div>`).join('')}
+          </div>`
+      },
+      {
+        id: 'websec', icon: '🛡️', title: 'Web Security (OWASP)',
+        level: 'Intermediate', duration: '60 min', desc: 'OWASP Top 10, XSS, CSRF, SQL Injection, and web application defense.',
+        topics: ['OWASP Top 10', 'XSS', 'CSRF', 'SQL Injection', 'Broken Auth', 'SSRF'],
+        content: `
+          <h2 style="margin-bottom:1rem">🛡️ Web Security & OWASP Top 10</h2>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem">
+            <span class="topic-pill">🟡 Intermediate</span><span class="topic-pill">⏱️ 60 min</span>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">OWASP Top 10 (2021)</h3>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;line-height:1.8">The OWASP Top 10 is the definitive list of the most critical web application security risks, maintained by the Open Web Application Security Project.</p>
+            <div style="display:grid;gap:0.75rem">
+              ${[
+                {n:'A01', t:'Broken Access Control', d:'Users can act outside intended permissions'},
+                {n:'A02', t:'Cryptographic Failures', d:'Sensitive data exposed due to weak/missing encryption'},
+                {n:'A03', t:'Injection', d:'SQL, NoSQL, OS, LDAP injection attacks'},
+                {n:'A04', t:'Insecure Design', d:'Missing security controls in design phase'},
+                {n:'A05', t:'Security Misconfiguration', d:'Default settings, unnecessary features enabled'},
+                {n:'A06', t:'Vulnerable Components', d:'Using outdated libraries with known vulnerabilities'},
+                {n:'A07', t:'Auth & Session Failures', d:'Weak passwords, session fixation, credential stuffing'},
+                {n:'A08', t:'Software Integrity Failures', d:'Unverified updates, CI/CD pipeline attacks'},
+                {n:'A09', t:'Logging & Monitoring Failures', d:'Attacks undetected due to poor logging'},
+                {n:'A10', t:'Server-Side Request Forgery', d:'Server makes requests to internal resources'}
+              ].map((i,idx) => `<div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid var(--border)">
+                <span style="background:var(--accent);color:var(--bg);padding:0.3rem 0.6rem;border-radius:6px;font-size:0.78rem;font-weight:800;flex-shrink:0">${i.n}</span>
+                <div><strong>${i.t}</strong> <span style="color:var(--text-muted);font-size:0.85rem"> ${i.d}</span></div>
+              </div>`).join('')}
+            </div>
+          </div>`
+      },
+      {
+        id: 'cloud', icon: '☁️', title: 'Cloud Security',
+        level: 'Advanced', duration: '50 min', desc: 'Shared responsibility model, IAM, cloud misconfigurations, and AWS/Azure security.',
+        topics: ['Shared Responsibility', 'IAM', 'S3 Misconfigs', 'Cloud Compliance', 'Zero Trust'],
+        content: `
+          <h2 style="margin-bottom:1rem">☁️ Cloud Security</h2>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem">
+            <span class="topic-pill">🔴 Advanced</span><span class="topic-pill">⏱️ 50 min</span>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Shared Responsibility Model</h3>
+            <p style="color:var(--text-muted);line-height:1.8;margin-bottom:1rem">Cloud security operates on a <strong>shared responsibility</strong> model. The cloud provider secures the infrastructure; you secure your data and configurations.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+              <div style="padding:1.25rem;background:rgba(0,212,255,0.06);border-radius:8px;border:1px solid var(--border)">
+                <h4 style="color:var(--accent);margin-bottom:0.75rem">Cloud Provider Secures</h4>
+                ${['Physical data centers','Virtualization layer','Network infrastructure','Storage hardware'].map(i=>`<p style="color:var(--text-muted);font-size:0.85rem;padding:0.3rem 0">✅ ${i}</p>`).join('')}
+              </div>
+              <div style="padding:1.25rem;background:rgba(255,107,107,0.05);border-radius:8px;border:1px solid var(--border)">
+                <h4 style="color:var(--accent3);margin-bottom:0.75rem">YOU Secure</h4>
+                ${['Data and encryption','IAM and access controls','Application security','Network configuration'].map(i=>`<p style="color:var(--text-muted);font-size:0.85rem;padding:0.3rem 0">⚠️ ${i}</p>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="glass" style="padding:2rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Common Cloud Mistakes</h3>
+            ${['Public S3 buckets exposing sensitive data (e.g., Capital One breach)','Overly permissive IAM roles and policies','Unencrypted data at rest and in transit','Missing multi-factor authentication on cloud console','No VPC network segmentation, flat network exposure','Logging and monitoring disabled','Hardcoded credentials in source code or container images'].map(i=>`
+            <div style="display:flex;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-muted)">
+              <span style="color:var(--accent3)">❌</span>${i}
+            </div>`).join('')}
+          </div>`
+      },
+      {
+        id: 'malware', icon: '🦠', title: 'Malware Analysis',
+        level: 'Advanced', duration: '45 min', desc: 'Types of malware, analysis techniques, and incident response.',
+        topics: ['Malware Types', 'Static Analysis', 'Dynamic Analysis', 'Reverse Engineering', 'IOCs'],
+        content: `
+          <h2 style="margin-bottom:1rem">🦠 Malware Analysis</h2>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem">
+            <span class="topic-pill">🔴 Advanced</span><span class="topic-pill">⏱️ 45 min</span>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Types of Malware</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+              ${[{t:'🦠 Virus',d:'Self-replicating, attaches to files'},{t:'🪱 Worm',d:'Self-replicates across networks'},{t:'🐴 Trojan',d:'Masquerades as legit software'},{t:'💰 Ransomware',d:'Encrypts files, demands ransom'},{t:'🕵️ Spyware',d:'Silently monitors activity'},{t:'💣 Rootkit',d:'Hides deep in OS/firmware'},{t:'🤖 Botnet',d:'Zombified machines controlled remotely'},{t:'📦 Fileless',d:'Lives in memory, no files on disk'}].map(m=>`
+              <div style="padding:1rem;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid var(--border)">
+                <strong>${m.t}</strong>
+              </div>`).join('')}
+            </div>
+          </div>
+          <div class="glass" style="padding:2rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Analysis Methodology</h3>
+            ${[{s:'1. Static Analysis',d:'Examine malware without executing it. Disassemble code, extract strings, check file hashes against VirusTotal.'},{s:'2. Dynamic Analysis',d:'Run malware in a sandboxed VM (REMnux, FlareVM). Observe network connections, file system changes, registry modifications.'},{s:'3. Behavioral Analysis',d:'Study what the malware does, what processes it spawns, what data it steals, what network endpoints it contacts.'},{s:'4. IOC Extraction',d:'Extract Indicators of Compromise: file hashes, IP addresses, domains, registry keys, share with threat intelligence platforms.'}].map(a=>`
+            <div style="padding:1.25rem;background:rgba(255,255,255,0.02);border-radius:8px;border-left:3px solid var(--accent);margin-bottom:0.75rem">
+              <h4 style="margin-bottom:0.35rem">${a.s}</h4>
+              <p style="color:var(--text-muted);font-size:0.88rem;line-height:1.6">${a.d}</p>
+            </div>`).join('')}
+          </div>`
+      },
+      {
+        id: 'ethical', icon: '💻', title: 'Ethical Hacking',
+        level: 'Advanced', duration: '75 min', desc: 'Penetration testing methodology, tools, and certification paths (CEH, OSCP).',
+        topics: ['Pen Testing Phases', 'Nmap', 'Metasploit', 'Burp Suite', 'OSCP', 'Bug Bounty'],
+        content: `
+          <h2 style="margin-bottom:1rem">💻 Ethical Hacking & Penetration Testing</h2>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem">
+            <span class="topic-pill">🔴 Advanced</span><span class="topic-pill">⏱️ 75 min</span>
+          </div>
+          <div class="glass" style="padding:2rem;margin-bottom:1.5rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Penetration Testing Methodology</h3>
+            <div style="display:grid;gap:0.75rem">
+              ${[{p:'1. Planning & Scoping',d:'Define scope, rules of engagement, legal authorization (get written permission!)',c:'#00D4FF'},{p:'2. Reconnaissance',d:'Passive (OSINT, WHOIS, Google Dork) and Active (port scanning, service enumeration)',c:'#a855f7'},{p:'3. Scanning & Enumeration',d:'nmap, Nessus, Nikto identify open ports, services, vulnerabilities',c:'#ffc832'},{p:'4. Exploitation',d:'Metasploit, manual exploits, exploit discovered vulnerabilities with permission',c:'#ff6b6b'},{p:'5. Post-Exploitation',d:'Privilege escalation, lateral movement, data exfiltration simulation',c:'#ff6b6b'},{p:'6. Reporting',d:'Document all findings, risk ratings, proof-of-concept, and remediation recommendations',c:'#00ffb3'}].map(s=>`
+              <div style="display:flex;gap:1rem;padding:1rem;background:rgba(255,255,255,0.02);border-radius:8px;border-left:3px solid ${s.c}">
+                <div><strong style="color:${s.c}">${s.p}</strong><br><span style="color:var(--text-muted);font-size:0.85rem">${s.d}</span></div>
+              </div>`).join('')}
+            </div>
+          </div>
+          <div class="glass" style="padding:2rem">
+            <h3 style="color:var(--accent);margin-bottom:1rem">Essential Tools</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem">
+              ${[{t:'Nmap',d:'Network scanner'},{t:'Metasploit',d:'Exploitation framework'},{t:'Burp Suite',d:'Web app testing'},{t:'Wireshark',d:'Packet analysis'},{t:'John/Hashcat',d:'Password cracking'},{t:'Aircrack-ng',d:'Wi-Fi security testing'},{t:'SQLmap',d:'SQL injection automation'},{t:'Gobuster',d:'Directory enumeration'}].map(t=>`
+              <div style="padding:0.9rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;text-align:center">
+                <strong style="color:var(--accent)">${t.t}</strong><br>
+                <span style="color:var(--text-muted);font-size:0.78rem">${t.d}</span>
+              </div>`).join('')}
+            </div>
+          </div>`
+      }
+    ];
+
+    function renderCourses() {
+      const grid = document.getElementById('learningGrid');
+      grid.innerHTML = courses.map(c => `
+        <div class="learning-card glass fade-in" onclick="openLesson('${c.id}')">
+          <div class="lc-icon">${c.icon}</div>
+          <h3>${c.title}</h3>
+          <p>${c.desc}</p>
+          <div class="topic-pills">
+            ${c.topics.slice(0,4).map(t => `<span class="topic-pill">${t}</span>`).join('')}
+          </div>
+          <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.8rem;color:var(--text-muted)">⏱️ ${c.duration}</span>
+            <span class="topic-pill" style="color:${c.level==='Beginner'?'var(--accent2)':c.level==='Intermediate'?'#ffc832':'var(--accent3)'}">${c.level}</span>
+          </div>
+        </div>`).join('');
+      document.querySelectorAll('.fade-in').forEach(el => {
+        setTimeout(() => el.classList.add('visible'), 100);
+      });
+    }
+
+    let currentLesson = '';
+
+function openLesson(id) {
+  const course = courses.find(c => c.id === id);
+  if (!course) return;
+
+  document.getElementById('courseGrid').style.display = 'none';
+
+  document.getElementById('lessonContent').innerHTML =
+    course.content +
+    `
+    <div style="text-align:center;margin-top:30px;">
+      <button class="btn btn-primary" onclick="completeLesson()">
+        Complete Module
+      </button>
+    </div>
+    `;
+
+  document.getElementById('lessonView').classList.add('active');
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+function completeLesson() {
+
+  let earned =
+    JSON.parse(localStorage.getItem('cvai_badges') || '{}');
+
+  earned['cyber_defender'] = Date.now();
+
+  localStorage.setItem(
+    'cvai_badges',
+    JSON.stringify(earned)
+  );
+
+  alert('🏆 Cyber Defender Badge Earned!');
+}
+
+    window.backToCourses = function() {
+      document.getElementById('courseGrid').style.display = 'block';
+      document.getElementById('lessonView').classList.remove('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+
+    window.addEventListener('scroll', function () {
+
+    const lessonView =
+        document.getElementById('lessonView');
+
+    if (
+        lessonView.classList.contains('active') &&
+        (window.innerHeight + window.scrollY)
+            >= document.body.offsetHeight - 50
+    ) {
+
+        let earned =
+            JSON.parse(
+                localStorage.getItem('cvai_badges') || '{}'
+            );
+
+        if (!earned['cyber_defender']) {
+
+            earned['cyber_defender'] = Date.now();
+
+            localStorage.setItem(
+                'cvai_badges',
+                JSON.stringify(earned)
+            );
+
+            alert(
+              '🏆 Cyber Defender Badge Unlocked!'
+            );
+        }
+    }
+});
+
+    renderCourses();
+  </script>
+</body>
+</html>
+

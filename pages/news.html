@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber News - CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html" class="active">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="badges.html"> Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-newspaper"></i> Threat Intelligence</div>
+    <h1>Cyber <span class="accent">News Hub</span></h1>
+    <p>Stay updated with the latest cybersecurity threats, breaches, vulnerabilities, and security alerts.</p>
+  </section>
+
+  <!-- ALERT BANNER -->
+  <div style="background:rgba(255,107,107,0.08);border-top:1px solid rgba(255,107,107,0.3);border-bottom:1px solid rgba(255,107,107,0.3);padding:0.75rem;text-align:center;font-size:0.85rem;color:#ff6b6b">
+    <i class="fas fa-triangle-exclamation"></i> <strong>DEMO DATA:</strong> The news articles below are illustrative examples. For real-time threat intelligence, visit <a href="https://threatintelligence.cert.br" style="color:var(--accent)">CERT</a>, <a href="https://www.cisa.gov/alerts-advisories" style="color:var(--accent)">CISA</a>, or <a href="https://feeds.feedburner.com/TheHackersNews" style="color:var(--accent)">The Hacker News</a>.
+  </div>
+
+  <div class="section" style="max-width:1200px">
+    <!-- FILTER TABS -->
+    <div class="tools-tabs mb2">
+      <button class="tab-btn active" onclick="filterNews('all', this)">🌐 All</button>
+      <button class="tab-btn" onclick="filterNews('critical', this)">🔴 Critical</button>
+      <button class="tab-btn" onclick="filterNews('warning', this)">⚠️  Warnings</button>
+      <button class="tab-btn" onclick="filterNews('info', this)">ℹ️ Research</button>
+      <button class="tab-btn" onclick="filterNews('breach', this)">  🚨 Breaches</button>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="glass" style="padding:2rem;margin-bottom:2rem;border-left:4px solid var(--accent3)" id="featuredArticle"></div>
+
+    <!-- NEWS GRID -->
+    <div class="news-grid" id="newsGrid"></div>
+  </div>
+
+  <!-- CVE SEARCH -->
+  <div class="section" style="max-width:800px">
+    <div class="tool-card glass">
+      <h3><i class="fas fa-search"></i> CVE / Threat Search</h3>
+      <p class="text-muted mb2" style="font-size:0.9rem">Search for CVEs (Common Vulnerabilities and Exposures) or known threat actors.</p>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+        <input type="text" id="cveInput" placeholder="Search: CVE-2023-12345, Log4Shell, EternalBlue..." style="flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1rem;color:var(--text);font-size:0.95rem;outline:none;min-width:200px"/>
+        <button class="btn btn-primary" onclick="searchCVE()"><i class="fas fa-search"></i> Search</button>
+      </div>
+      <div id="cveResult" style="margin-top:1.5rem;display:none"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom"><p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const NEWS = [
+      { id:1, cat:'critical', tag:'CRITICAL', tagClass:'tag-critical', title:'Major Ransomware Attack Hits Global Healthcare Network', date:'June 12, 2025', author:'CyberVault Intelligence', summary:'A sophisticated ransomware group has compromised over 40 hospitals across 12 countries, encrypting patient records and demanding $25M in cryptocurrency. The LockBit successor group is suspected.', impact:'High' },
+      { id:2, cat:'breach', tag:'DATA BREACH', tagClass:'tag-critical', title:'Tech Giant Exposes 2.3 Billion User Records via Misconfigured S3 Bucket', date:'June 10, 2025', author:'CyberVault Intel', summary:'A major technology company left an AWS S3 bucket publicly accessible for over 6 months, exposing full names, emails, phone numbers, and hashed passwords for 2.3 billion users.', impact:'Critical' },
+      { id:3, cat:'warning', tag:'VULNERABILITY', tagClass:'tag-warning', title:'Critical Zero-Day in Windows Kernel Actively Exploited in the Wild', date:'June 9, 2025', author:'Microsoft Security', summary:'CVE-2025-1234 allows attackers to achieve SYSTEM-level privilege escalation via a memory corruption bug in the Windows NT kernel. Patch Tuesday emergency update released.', impact:'Critical' },
+      { id:4, cat:'warning', tag:'ALERT', tagClass:'tag-warning', title:'Sophisticated Phishing Campaign Targeting Financial Institutions', date:'June 8, 2025', author:'FBI Cyber Division', summary:'A new BEC (Business Email Compromise) campaign is targeting CFOs and finance teams using AI-generated deepfake voice calls combined with spoofed invoice emails. $50M lost so far.', impact:'High' },
+      { id:5, cat:'info', tag:'RESEARCH', tagClass:'tag-info', title:'Researchers Discover AI Can Crack 51% of Common Passwords in Under a Minute', date:'June 7, 2025', author:'Security Research Lab', summary:'Home Security Heroes published a study showing AI password cracking tools can compromise over half of commonly used passwords almost instantly, emphasizing the need for strong, unique passwords.', impact:'Medium' },
+      { id:6, cat:'critical', tag:'APT', tagClass:'tag-critical', title:'Chinese APT Group Breaches US Defense Contractor Supply Chain', date:'June 6, 2025', author:'CISA Alert', summary:'APT41 successfully compromised a Tier-1 US defense contractor through a third-party software vendor, potentially gaining access to classified project specifications.', impact:'Critical' },
+      { id:7, cat:'breach', tag:'BREACH', tagClass:'tag-critical', title:'OAuth Misconfiguration Allows Account Takeover on Major Platform', date:'June 5, 2025', author:'HackerOne Disclosure', summary:'A security researcher discovered an OAuth implementation flaw allowing full account takeover without credentials. The bug was patched within 24 hours following responsible disclosure.', impact:'High' },
+      { id:8, cat:'info', tag:'RESEARCH', tagClass:'tag-info', title:'New Quantum-Resistant Encryption Standards Finalized by NIST', date:'June 4, 2025', author:'NIST', summary:'NIST officially finalized three post-quantum cryptography standards (CRYSTALS-Kyber, CRYSTALS-Dilithium, SPHINCS+) to protect against future quantum computer attacks on current encryption.', impact:'Low' },
+      { id:9, cat:'warning', tag:'MALWARE', tagClass:'tag-warning', title:'New Android Spyware Disguised as Productivity Apps Found on Play Store', date:'June 3, 2025', author:'Mobile Threat Team', summary:'25 malicious apps disguised as VPN clients and file managers were found on Google Play Store, collectively downloaded over 8 million times. They exfiltrate contacts, SMS, and location data.', impact:'High' },
+      { id:10, cat:'info', tag:'RESEARCH', tagClass:'tag-info', title:'OWASP Releases Updated Top 10 for LLM Application Security', date:'June 2, 2025', author:'OWASP Foundation', summary:'OWASP published the first-ever Top 10 risks for LLM (Large Language Model) applications including Prompt Injection, Insecure Output Handling, and Training Data Poisoning.', impact:'Medium' },
+      { id:11, cat:'critical', tag:'ZERO-DAY', tagClass:'tag-critical', title:'Critical Vulnerability in Popular VPN Client Allows Remote Code Execution', date:'June 1, 2025', author:'NVD', summary:'CVE-2025-5678 affects millions of enterprise VPN clients. An unauthenticated attacker on the same network can achieve remote code execution with no user interaction required. No patch available.', impact:'Critical' },
+      { id:12, cat:'breach', tag:'BREACH', tagClass:'tag-critical', title:'Major Bank Customer Data Stolen via Third-Party Vendor Compromise', date:'May 31, 2025', author:'Financial Times', summary:'A third-party KYC (Know Your Customer) vendor used by multiple major banks was compromised, exposing passport scans, bank statements, and personal data of 15 million customers.', impact:'Critical' }
+    ];
+
+    function renderFeatured() {
+      const n = NEWS[0];
+      document.getElementById('featuredArticle').innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem">
+          <div>
+            <span class="news-tag ${n.tagClass}">
+  ⭐ FEATURED — ${n.tag}
+</span>
+            <h2 style="margin:0.75rem 0;font-size:1.4rem;line-height:1.4">${n.title}</h2>
+            <p style="color:var(--text-muted);line-height:1.7;margin-bottom:0.75rem">${n.summary}</p>
+            <div class="news-meta"><i class="fas fa-calendar"></i> ${n.date} &nbsp;|&nbsp; <i class="fas fa-user"></i> ${n.author} &nbsp;|&nbsp; Impact: <span style="color:var(--accent3);font-weight:700">${n.impact}</span></div>
+          </div>
+        </div>`;
+    }
+
+    let activeFilter = 'all';
+
+    function filterNews(cat, btn) {
+      activeFilter = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderNews();
+    }
+
+    function renderNews() {
+      const filtered = activeFilter === 'all' ? NEWS.slice(1) : NEWS.slice(1).filter(n => n.cat === activeFilter);
+      document.getElementById('newsGrid').innerHTML = filtered.map(n => `
+        <div class="news-card glass fade-in">
+          <span class="news-tag ${n.tagClass}">${n.tag}</span>
+          <h3>${n.title}</h3>
+          <p>${n.summary.substring(0,120)}...</p>
+          <div class="news-meta">
+            <i class="fas fa-calendar"></i> ${n.date} &nbsp;|&nbsp; Impact: <span style="color:${n.impact==='Critical' ? '#ff6b6b' : n.impact==='High' ? '#ffc832' : 'var(--accent2)'};font-weight:600">${n.impact}</span>
+          </div>
+        </div>`).join('');
+      document.querySelectorAll('.fade-in').forEach(el => setTimeout(() => el.classList.add('visible'), 100));
+    }
+
+    // ---- CVE SEARCH ----
+    const CVE_DB = {
+      'log4shell': { id:'CVE-2021-44228', title:'Log4Shell', score:'10.0 Critical', desc:'Remote code execution vulnerability in Apache Log4j 2. Affects millions of Java applications. Attacker sends malicious JNDI string in log messages.', affected:'Apache Log4j 2.0-beta9 through 2.14.1', fix:'Upgrade to Log4j 2.17.1 or later. Apply WAF rules. Disable JNDI.' },
+      'cve-2021-44228': { id:'CVE-2021-44228', title:'Log4Shell', score:'10.0 Critical', desc:'Remote code execution in Apache Log4j via JNDI injection.', affected:'Apache Log4j < 2.17.1', fix:'Update to Log4j 2.17.1+' },
+      'eternalblue': { id:'CVE-2017-0144', title:'EternalBlue / MS17-010', score:'9.3 Critical', desc:'Buffer overflow in Windows SMBv1 allowing remote code execution. Used by WannaCry and NotPetya ransomware.', affected:'Windows XP, Vista, 7, 8.1, Server 2003-2012', fix:'Apply MS17-010 patch. Disable SMBv1.' },
+      'heartbleed': { id:'CVE-2014-0160', title:'Heartbleed', score:'7.5 High', desc:'Buffer over-read in OpenSSL TLS heartbeat extension allowing memory disclosure of server private keys and user data.', affected:'OpenSSL 1.0.1 through 1.0.1f', fix:'Upgrade to OpenSSL 1.0.1g or later. Revoke and reissue SSL certificates.' },
+      'shellshock': { id:'CVE-2014-6271', title:'Shellshock', score:'10.0 Critical', desc:'Arbitrary code execution vulnerability in GNU Bash via specially crafted environment variables.', affected:'GNU Bash 1.14 through 4.3', fix:'Update Bash to patched version.' },
+      'spectre': { id:'CVE-2017-5753', title:'Spectre', score:'5.6 Medium', desc:'Hardware-level speculative execution attack allowing reading of privileged memory across process boundaries.', affected:'Intel, AMD, ARM processors', fix:'OS/firmware patches (with performance impact). Compiler mitigations.' }
+    };
+
+    window.searchCVE = function() {
+      const query = document.getElementById('cveInput').value.trim().toLowerCase();
+      if (!query) return;
+      const result = document.getElementById('cveResult');
+      const found = CVE_DB[query] || Object.values(CVE_DB).find(c => c.title.toLowerCase().includes(query) || c.id.toLowerCase().includes(query));
+      if (found) {
+        const color = found.score.includes('10.0') || found.score.includes('9.') ? 'var(--accent3)' : found.score.includes('7.') ? '#ffc832' : 'var(--accent)';
+        result.innerHTML = `
+          <div style="padding:1.5rem;background:rgba(0,0,0,0.2);border-radius:12px;border:1px solid var(--border)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem">
+              <div>
+                <span style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase">${found.id}</span>
+                <h3 style="margin-top:0.25rem">${found.title}</h3>
+              </div>
+              <span style="background:${color}22;color:${color};border:1px solid ${color};padding:0.3rem 0.9rem;border-radius:50px;font-size:0.82rem;font-weight:700;white-space:nowrap">CVSS: ${found.score}</span>
+            </div>
+            <p style="color:var(--text-muted);margin-bottom:1rem;line-height:1.7">${found.desc}</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+              <div style="padding:0.9rem;background:rgba(255,107,107,0.06);border-radius:8px">
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem">AFFECTED</p>
+                <p style="font-size:0.88rem">${found.affected}</p>
+              </div>
+              <div style="padding:0.9rem;background:rgba(0,255,179,0.06);border-radius:8px">
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem">REMEDIATION</p>
+                <p style="font-size:0.88rem;color:var(--accent2)">${found.fix}</p>
+              </div>
+            </div>
+          </div>`;
+      } else {
+        result.innerHTML = `<div style="padding:1.5rem;text-align:center;color:var(--text-muted)">
+          <i class="fas fa-search" style="font-size:2rem;margin-bottom:1rem;display:block;color:var(--border)"></i>
+          <p>No results for "<strong>${query}</strong>"</p>
+          <p style="font-size:0.85rem;margin-top:0.5rem">Try: Log4Shell, EternalBlue, Heartbleed, Shellshock, Spectre</p>
+        </div>`;
+      }
+      result.style.display = 'block';
+    };
+
+    document.getElementById('cveInput').addEventListener('keypress', e => { if(e.key==='Enter') searchCVE(); });
+
+    renderFeatured();
+    renderNews();
+  </script>
+</body>
+</html>
+

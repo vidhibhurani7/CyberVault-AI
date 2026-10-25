@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - CyberVault AI</title>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="badges.html">Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+<section class="page-hero">
+  <div class="page-badge">
+    <i class="fas fa-chart-line"></i>
+    Security Dashboard
+  </div>
+
+  <h1>Your Security <span class="accent">Dashboard</span></h1>
+
+  <p>
+    Track your cybersecurity posture, completed modules,
+    and security progress.
+  </p>
+</section>
+
+<section class="section">
+
+  <div class="dashboard-grid">
+
+    <div class="dash-stat glass">
+      <div class="dash-stat-icon icon-blue">
+        <i class="fas fa-shield-halved"></i>
+      </div>
+      <div>
+        <h4>82</h4>
+        <p>Security Score</p>
+      </div>
+    </div>
+
+    <div class="dash-stat glass">
+      <div class="dash-stat-icon icon-green">
+        <i class="fas fa-trophy"></i>
+      </div>
+      <div>
+        <h4>3</h4>
+        <p>Quizzes Completed</p>
+      </div>
+    </div>
+
+    <div class="dash-stat glass">
+      <div class="dash-stat-icon icon-red">
+        <i class="fas fa-triangle-exclamation"></i>
+      </div>
+      <div>
+        <h4>2</h4>
+        <p>Threats Analyzed</p>
+      </div>
+    </div>
+
+    <div class="dash-stat glass">
+      <div class="dash-stat-icon icon-purple">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div>
+        <h4>4</h4>
+        <p>Modules Learned</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dashboard-charts">
+
+    <div class="glass chart-container">
+      <h4>🔐 Security Posture</h4>
+
+      <p>Password Security</p>
+      <progress value="90" max="100"></progress>
+
+      <p>MFA Coverage</p>
+      <progress value="75" max="100"></progress>
+
+      <p>Device Security</p>
+      <progress value="85" max="100"></progress>
+
+      <p>Awareness Level</p>
+      <progress value="80" max="100"></progress>
+    </div>
+
+    <div class="glass chart-container">
+      <h4>📊 Threat Landscape</h4>
+
+      <ul>
+        <li>Phishing — 85%</li>
+        <li>Malware — 62%</li>
+        <li>Brute Force — 48%</li>
+        <li>MITM — 35%</li>
+        <li>Insider Threat — 28%</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="glass" style="padding:2rem;margin-top:2rem;">
+
+    <h3>📚 Learning Progress</h3>
+
+    <ul>
+      <li>✅ Phishing & Social Engineering (92%)</li>
+      <li>✅ Network Security (85%)</li>
+      <li>🔒 Web Security (Locked)</li>
+      <li>🔒 Cloud Security (Locked)</li>
+      <li>🔒 Malware Analysis (Locked)</li>
+      <li>🔒 Ethical Hacking (Locked)</li>
+    </ul>
+
+  </div>
+
+  <div class="glass" style="padding:2rem;margin-top:2rem;">
+
+    <h3>⚡ Recent Activity</h3>
+
+    <ul>
+      <li>Completed Beginner Quiz</li>
+      <li>Analyzed suspicious email</li>
+      <li>Checked password strength</li>
+      <li>Completed Phishing module</li>
+    </ul>
+
+  </div>
+
+  <div class="glass" style="padding:2rem;margin-top:2rem;">
+
+    <h3>🎯 Recommended Actions</h3>
+
+    <ul>
+      <li>Enable MFA on all accounts</li>
+      <li>Complete Network Security module</li>
+      <li>Take Intermediate Quiz</li>
+      <li>Run Risk Assessment</li>
+    </ul>
+
+  </div>
+
+</section>
+
+<footer class="footer">
+  <div class="footer-bottom">
+    <p>© 2026 CyberVault AI | Protect. Detect. Learn.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>

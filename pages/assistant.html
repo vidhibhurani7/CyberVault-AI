@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Security Assistant - CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html" class="active">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="badges.html"> Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-robot"></i> AI-Powered</div>
+    <h1>Ask <span class="accent">CyberVault AI</span></h1>
+    <p>Your 24/7 cybersecurity expert. Ask anything about digital security, threats, best practices, and more.</p>
+  </section>
+
+  <div class="chat-container">
+    <!-- Quick Topics -->
+    <div class="quick-topics" id="quickTopics">
+      <button class="quick-topic" onclick="askQuestion('What is phishing?')">🎣 What is phishing?</button>
+      <button class="quick-topic" onclick="askQuestion('How to create a strong password?')">🔒 Strong passwords</button>
+      <button class="quick-topic" onclick="askQuestion('What is malware?')">🦠 What is malware?</button>
+      <button class="quick-topic" onclick="askQuestion('What is SQL Injection?')">💉 SQL Injection</button>
+      <button class="quick-topic" onclick="askQuestion('How to secure my Wi-Fi?')">📶 Secure Wi-Fi</button>
+      <button class="quick-topic" onclick="askQuestion('What is ransomware?')">💰 Ransomware</button>
+      <button class="quick-topic" onclick="askQuestion('What is two-factor authentication?')">🔐 2FA</button>
+      <button class="quick-topic" onclick="askQuestion('How to detect phishing emails?')">📧 Phishing emails</button>
+      <button class="quick-topic" onclick="askQuestion('What is a VPN?')">🌐 VPN</button>
+      <button class="quick-topic" onclick="askQuestion('What is social engineering?')">
+🎭 Social Engineering</button>
+    </div>
+
+    <div class="chat-window">
+      <div class="chat-window-header">
+        <i class="fas fa-robot"></i>
+        <span>CyberVault AI Assistant</span>
+        <div class="status-dot"></div>
+        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:auto">Online</span>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg bot">
+          <div class="msg-label"><i class="fas fa-robot"></i> CyberVault AI</div>
+          Hello! I'm CyberVault AI, your personal cybersecurity assistant.🔐<br><br>
+          You can ask me anything about:<br>
+          . Cybersecurity threats and attacks<br>
+          . Password and account security<br>
+          . Network and Wi-Fi security<br>
+          . Phishing and social engineering<br>
+          . Best security practices<br><br>
+          What would you like to know?
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Ask a cybersecurity question..." onkeypress="if(event.key==='Enter')sendMsg()"/>
+        <button onclick="sendMsg()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <p class="text-muted mt1" style="font-size:0.8rem;text-align:center">
+      <i class="fas fa-info-circle"></i> CyberVault AI provides educational information. Always consult a security professional for critical decisions.
+    </p>
+  </div>
+
+  <footer class="footer">
+  <div class="footer-bottom">
+    <p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p>
+  </div>
+</footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const KB = {
+      "phishing": {
+        keywords: ["phishing","phish"],
+        response: `<strong>🎣 Phishing</strong><br><br>
+Phishing is a cyberattack where criminals impersonate trusted entities (banks, companies, colleagues) to steal sensitive information like passwords, credit cards, or install malware.<br><br>
+<strong>Types of Phishing:</strong><br>
+. <em>Email Phishing</em> – Fake emails with malicious links<br>
+. <em>Spear Phishing</em> – Targeted attacks on specific individuals<br>
+. <em>Smishing</em> – Phishing via SMS text messages<br>
+. <em>Vishing</em> – Voice/phone phishing calls<br><br>
+<strong>🛡️ How to Protect Yourself:</strong><br>
+. Verify the sender's email address carefully<br>
+. Never click suspicious links — hover first to check the URL<br>
+. Never enter credentials on pages you reached via email links<br>
+. Enable two-factor authentication (2FA)<br>
+. Use an email security gateway/spam filter`
+      },
+      "password": {
+        keywords: ["password","passphrase","strong password"],
+        response: `<strong>🔒 Creating Strong Passwords</strong><br><br>
+A strong password is your first line of defense against unauthorized access.<br><br>
+<strong>Rules for Strong Passwords:</strong><br>
+. Minimum 12 characters (16+ is better)<br>
+. Mix uppercase, lowercase, numbers, and symbols<br>
+. Avoid dictionary words or personal information<br>
+. Never reuse passwords across accounts<br>
+. Use a passphrase: <em>"Coffee#Sky!Moon2024"</em><br><br>
+<strong>🛡️ Best Practices:</strong><br>
+. Use a password manager (Bitwarden, 1Password, LastPass)<br>
+. Enable Multi-Factor Authentication (MFA)<br>
+. Change passwords every 90 days for critical accounts<br>
+. Check haveibeenpwned.com to see if your email was breached`
+      },
+      "malware": {
+        keywords: ["malware","virus","trojan","spyware","adware","worm"],
+        response: `<strong>🦠 Malware</strong><br><br>
+Malware (malicious software) is any software intentionally designed to cause harm to computers, networks, or users.<br><br>
+<strong>Types of Malware:</strong><br>
+. <em>Virus</em> – Self-replicating code that attaches to files<br>
+. <em>Trojan</em> – Disguises as legitimate software<br>
+. <em>Ransomware</em> – Encrypts your files and demands payment<br>
+. <em>Spyware</em> – Secretly monitors your activity<br>
+. <em>Adware</em> – Bombards you with ads<br>
+. <em>Worm</em> – Self-replicates across networks<br>
+. <em>Rootkit</em> – Hides deep in the OS<br><br>
+<strong>🛡️ Protection:</strong><br>
+. Keep antivirus software updated<br>
+. Never download from untrusted sources<br>
+. Keep OS and software patched<br>
+. Use email filtering and web proxies`
+      },
+      "sql injection": {
+        keywords: ["sql","sql injection","sqli"],
+        response: `<strong>💉  SQL Injection (SQLi)</strong><br><br>
+SQL Injection is a web security vulnerability that allows attackers to interfere with database queries by inserting malicious SQL code into input fields.<br><br>
+<strong>Example Attack:</strong><br>
+<code>Username: admin'--<br>Password: anything</code><br><br>
+This may bypass authentication entirely!<br><br>
+<strong>Impact:</strong><br>
+. Unauthorized data access<br>
+. Data deletion or modification<br>
+. Authentication bypass<br>
+. Full server compromise<br><br>
+<strong>🛡️ Prevention:</strong><br>
+. Use parameterized queries / prepared statements<br>
+. Input validation and sanitization<br>
+. Use an ORM (Object Relational Mapper)<br>
+. Implement Web Application Firewall (WAF)<br>
+. Least privilege database access`
+      },
+      "wifi": {
+        keywords: ["wifi","wi-fi","wireless","router","network"],
+        response: `<strong>📶 Securing Your Wi-Fi Network</strong><br><br>
+An unsecured Wi-Fi network is an open door for attackers on your home or business network.<br><br>
+<strong>🛡️ Steps to Secure Your Wi-Fi:</strong><br>
+1. <strong>Use WPA3 encryption</strong> (minimum WPA2)<br>
+2. <strong>Change default router credentials</strong> — never use "admin/admin"<br>
+3. <strong>Use a strong Wi-Fi password</strong> (20+ characters)<br>
+4. <strong>Hide your SSID</strong> — don't broadcast network name<br>
+5. <strong>Enable firewall</strong> on your router<br>
+6. <strong>Disable WPS</strong> (Wi-Fi Protected Setup)<br>
+7. <strong>Update router firmware</strong> regularly<br>
+8. <strong>Set up a guest network</strong> for visitors/IoT devices<br>
+9. <strong>Monitor connected devices</strong> regularly<br>
+10. <strong>Use a VPN</strong> on public Wi-Fi`
+      },
+      "ransomware": {
+        keywords: ["ransomware","ransom","encrypt","decrypt"],
+        response: `<strong>💰 Ransomware</strong><br><br>
+Ransomware is malware that encrypts your files and demands a ransom payment (usually in cryptocurrency) to restore access.<br><br>
+<strong>Famous Ransomware Attacks:</strong><br>
+. WannaCry (2017) – $4 billion in damages<br>
+. NotPetya (2017) – $10 billion in damages<br>
+. Colonial Pipeline (2021) – Shut down US fuel supply<br><br>
+<strong>How It Spreads:</strong><br>
+. Phishing emails with malicious attachments<br>
+. Exploiting unpatched vulnerabilities<br>
+. Remote Desktop Protocol (RDP) attacks<br><br>
+<strong>🛡️ Prevention:</strong><br>
+. Regular offline backups (3-2-1 rule)<br>
+. Patch software immediately<br>
+. Use endpoint detection and response (EDR)<br>
+. Disable macros in Office documents<br>
+. Never pay the ransom — it funds more attacks`
+      },
+      "2fa": {
+        keywords: ["2fa","mfa","multi-factor","two-factor","authenticator"],
+        response: `<strong>🔐 Multi-Factor Authentication (MFA/2FA)</strong><br><br>
+MFA adds an extra layer of security beyond just a password. Even if your password is stolen, attackers can't access your account without the second factor.<br><br>
+<strong>Types of MFA Factors:</strong><br>
+. <em>Something you know</em> – Password, PIN<br>
+. <em>Something you have</em> – Phone, hardware key (YubiKey)<br>
+. <em>Something you are</em> – Fingerprint, face ID<br><br>
+<strong>MFA Methods (Best â†’ Worst):</strong><br>
+1. 🥇 Hardware security key (YubiKey, Titan)<br>
+2. 🥈 Authenticator app (Google Auth, Authy)<br>
+3. 🥉 SMS/Text code (vulnerable to SIM swap)<br><br>
+<strong>🛡️ Enable MFA on:</strong><br>
+. Email (Gmail, Outlook)<br>
+. Social media accounts<br>
+. Banking and financial apps<br>
+. Work/corporate accounts<br>
+. Cloud services (AWS, Azure, GCP)`
+      },
+      "vpn": {
+        keywords: ["vpn","virtual private"],
+        response: `<strong>🌐 VPN (Virtual Private Network)</strong><br><br>
+A VPN creates an encrypted tunnel between your device and a VPN server, masking your IP address and securing your internet traffic.<br><br>
+<strong>Benefits of VPN:</strong><br>
+. Encrypts your internet traffic<br>
+. Hides your real IP address<br>
+. Protects on public Wi-Fi<br>
+. Bypasses geo-restrictions<br>
+. Prevents ISP tracking<br><br>
+<strong>Limitations:</strong><br>
+. Doesn't make you anonymous — just more private<br>
+. VPN provider can see your traffic<br>
+. Can slow internet speed<br><br>
+<strong>🛡️ Recommended VPNs:</strong><br>
+. ProtonVPN (privacy-focused, open source)<br>
+. Mullvad (no-logs policy)<br>
+. ExpressVPN, NordVPN (commercial options)<br><br>
+<strong>Always use VPN on public Wi-Fi!</strong>`
+      },
+      "social engineering": {
+        keywords: ["social engineering","social","pretexting","baiting","quid pro quo"],
+        response: `<strong>🎭 Social Engineering</strong><br><br>
+Social engineering exploits human psychology rather than technical vulnerabilities. It's often the easiest way to hack — by tricking people.<br><br>
+<strong>Common Techniques:</strong><br>
+. <em>Phishing</em> – Deceptive emails/messages<br>
+. <em>Pretexting</em> – Creating a fake scenario to extract info<br>
+. <em>Baiting</em> – Leaving infected USB drives in parking lots<br>
+. <em>Quid Pro Quo</em> – Offering help in exchange for credentials<br>
+. <em>Tailgating</em> – Physically following someone into secure areas<br><br>
+<strong>🛡️ Defense:</strong><br>
+. Security awareness training for all employees<br>
+. Verify identities before sharing information<br>
+. Follow the "need to know" principle<br>
+. Establish clear security policies<br>
+. When in doubt, verify through official channels`
+      }
+    };
+
+    function getAIResponse(input) {
+      const lower = input.toLowerCase();
+      for (const key in KB) {
+        if (KB[key].keywords.some(kw => lower.includes(kw))) {
+          return KB[key].response;
+        }
+      }
+      // Generic response
+      return `<strong>🤖 CyberVault AI Response</strong><br><br>
+That's a great cybersecurity question! Here's what I can tell you:<br><br>
+<strong>General Security Best Practices:</strong><br>
+. Always use strong, unique passwords with a password manager<br>
+. Enable Multi-Factor Authentication (MFA) everywhere<br>
+. Keep all software and systems updated<br>
+. Be suspicious of unexpected emails or messages<br>
+. Regularly back up your data (3-2-1 rule)<br>
+. Use HTTPS websites — look for the padlock<br><br>
+For more specific information, try asking about: <em>phishing, malware, SQL injection, passwords, VPN, ransomware, or Wi-Fi security.</em><br><br>
+You can also visit our <a href="learning.html" style="color:var(--accent)">Learning Center</a> for in-depth topics! 📚`;
+    }
+
+    function appendMsg(text, type) {
+      const box = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = `chat-msg ${type}`;
+      div.innerHTML = `<div class="msg-label">${type === 'bot' ? '<i class="fas fa-robot"></i> CyberVault AI' : '<i class="fas fa-user"></i> You'}</div>${text}`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function appendTyping() {
+      const box = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'chat-msg bot';
+      div.id = 'typingIndicator';
+      div.innerHTML = '<div class="msg-label"><i class="fas fa-robot"></i> CyberVault AI</div><em style="color:var(--text-muted)">Analyzing your question...</em>';
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    let aiMsgCount = parseInt(localStorage.getItem('cvai_ai_count') || '0');
+    window.sendMsg = function() {
+      const input = document.getElementById('chatInput');
+      const val = input.value.trim();
+      if (!val) return;
+      appendMsg(val, 'user');
+      input.value = '';
+      appendTyping();
+      aiMsgCount++;
+      localStorage.setItem('cvai_ai_count', aiMsgCount);
+      if (aiMsgCount >= 3) localStorage.setItem('cvai_used_assistant', '1');
+      setTimeout(() => {
+        document.getElementById('typingIndicator')?.remove();
+        appendMsg(getAIResponse(val), 'bot');
+      }, 1000 + Math.random() * 800);
+    };
+
+    window.askQuestion = function(q) {
+      document.getElementById('chatInput').value = q;
+      sendMsg();
+    };
+  </script>
+</body>
+</html>
+

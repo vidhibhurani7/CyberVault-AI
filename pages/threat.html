@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Threat Analyzer AI - CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html" class="active">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="badges.html"> Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-magnifying-glass-chart"></i> IBM Feature</div>
+    <h1>Threat <span class="accent">Analyzer AI</span></h1>
+    <p>Paste a suspicious email, URL, or message. Our AI instantly analyzes it for risk, threat type, and safety recommendations.</p>
+  </section>
+
+  <div class="section" style="max-width:900px">
+    <div class="tools-tabs">
+      <button class="tab-btn active" onclick="switchTab('email')"><i class="fas fa-envelope"></i> Email Analyzer</button>
+      <button class="tab-btn" onclick="switchTab('urldeep')"><i class="fas fa-link"></i> URL Deep Scan</button>
+      <button class="tab-btn" onclick="switchTab('riskscore')"><i class="fas fa-gauge-high"></i> Cyber Risk Score</button>
+      <button class="tab-btn" onclick="switchTab('tips')"><i class="fas fa-lightbulb"></i> Security Tips</button>
+    </div>
+
+    <!-- EMAIL ANALYZER -->
+    <div id="panel-email" class="tool-panel active">
+      <div class="tool-card glass">
+        <h3><i class="fas fa-envelope-open-text"></i> Phishing Email Detector</h3>
+        <div class="input-group">
+          <label>Paste Suspicious Email Content</label>
+          <textarea id="emailInput" rows="8" placeholder="Paste the full email content here including subject, sender, and body text...&#10;&#10;Example:&#10;Subject: URGENT - Your account will be suspended&#10;From: security@paypa1.com&#10;&#10;Dear Customer, Your account has been flagged. Click here immediately to verify: http://bit.ly/verify-now"></textarea>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="analyzeEmail()"><i class="fas fa-search"></i> Analyze Threat</button>
+          <button class="btn btn-outline" onclick="loadSample()"><i class="fas fa-file-import"></i> Load Sample</button>
+        </div>
+        <div id="emailResult" class="threat-result"></div>
+      </div>
+    </div>
+
+    <!-- URL DEEP SCAN -->
+    <div id="panel-urldeep" class="tool-panel">
+      <div class="tool-card glass">
+        <h3><i class="fas fa-microscope"></i> URL Deep Threat Scanner</h3>
+        <div class="input-group">
+          <label>URL to Deep Scan</label>
+          <input type="text" id="urlDeep" placeholder="https://suspicious-domain.xyz/login?redirect=paypal"/>
+        </div>
+        <div class="input-group">
+          <label>Context (optional)</label>
+          <textarea id="urlContext" rows="3" placeholder="Describe where you received this URL (email, SMS, social media, etc.)..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="deepScanURL()"><i class="fas fa-radar"></i> Deep Scan</button>
+        <div id="urlDeepResult" class="threat-result"></div>
+      </div>
+    </div>
+
+    <!-- CYBER RISK SCORE -->
+    <div id="panel-riskscore" class="tool-panel">
+      <div class="tool-card glass">
+        <h3><i class="fas fa-gauge-high"></i> Cyber Risk Assessment</h3>
+        <p class="text-muted mb2">Answer these questions to get your personalized cybersecurity risk score and recommendations.</p>
+        <div id="riskQuestions"></div>
+        <div id="riskFinalResult" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- TIPS GENERATOR -->
+    <div id="panel-tips" class="tool-panel">
+      <div class="tool-card glass">
+        <h3><i class="fas fa-lightbulb"></i> AI Security Tips Generator</h3>
+        <p class="text-muted mb2">Get personalized cybersecurity tips based on your profile.</p>
+        <div class="input-group">
+          <label>I am a...</label>
+          <select id="tipProfile">
+            <option value="home">Home User</option>
+            <option value="business">Business Professional</option>
+            <option value="student">Student</option>
+            <option value="developer">Software Developer</option>
+            <option value="remote">Remote Worker</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>My biggest security concern is...</label>
+          <select id="tipConcern">
+            <option value="phishing">Phishing / Email Scams</option>
+            <option value="identity">Identity Theft</option>
+            <option value="hacking">Account Hacking</option>
+            <option value="privacy">Online Privacy</option>
+            <option value="malware">Malware / Ransomware</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="generateTips()"><i class="fas fa-wand-magic-sparkles"></i> Generate My Tips</button>
+        <div id="tipsResult" style="display:none;margin-top:1.5rem"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom"><p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function switchTab(name) {
+      document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // ---- EMAIL ANALYZER ----
+    function loadSample() {
+      document.getElementById('emailInput').value = `Subject: URGENT - Your account will be SUSPENDED in 24 hours!
+From: security-team@paypa1-support.com
+Reply-To: noreply@suspicious-domain.ru
+
+Dear Valued Customer,
+
+We have detected unusual activity on your PayPal account. Your account will be permanently SUSPENDED unless you verify your identity immediately.
+
+CLICK HERE TO VERIFY NOW: http://bit.ly/paypal-verify-urgent
+
+You must act within 24 HOURS or your account will be closed and your funds frozen.
+
+Provide your:
+- Full name
+- Date of birth  
+- Password
+- Credit card number
+
+Security Department
+PayPal Inc.`;
+    }
+
+    function analyzeEmail() {
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email) { alert('Please paste an email to analyze.'); return; }
+      const lower = email.toLowerCase();
+
+      const indicators = [];
+      if (/urgent|immediately|suspend|expire|click here|act now|within \d+ hours/i.test(email))
+        indicators.push({ icon: '🚨', text: 'Urgent language and pressure tactics' });
+      if (/bit\.ly|tinyurl|goo\.gl|ow\.ly/i.test(email))
+        indicators.push({ icon: '🔗', text: 'Shortened/obscured URLs that hide real destination' });
+      if (/paypa1|g00gle|amaz0n|micros0ft|app1e/i.test(email))
+        indicators.push({ icon: '🎭', text: 'Typosquatting — impersonating a trusted brand' });
+      if (/\.ru$|\.cn$|\.tk$|\.xyz$/m.test(email))
+        indicators.push({ icon: '🌍', text: 'High-risk domain extension (.ru, .cn, .tk, .xyz)' });
+      if (/password|credit card|social security|date of birth/i.test(email))
+        indicators.push({ icon: '💳', text: 'Requesting sensitive personal/financial information' });
+      if (/dear customer|dear user|dear account holder/i.test(email))
+        indicators.push({ icon: '👤', text: 'Generic greeting — not personalized (impersonal mass phishing)' });
+      if (!/from:.*@[a-z]+\.[a-z]{2,3}$/im.test(email) || /reply-to:.*@(?!.*same.*)/i.test(email))
+        indicators.push({ icon: '📧', text: 'Suspicious sender domain or mismatched Reply-To' });
+      if (/login|verify|confirm|account|update your|provide your/i.test(email))
+        indicators.push({ icon: '🔐', text: 'Credential harvesting language' });
+
+      const score = Math.min(98, indicators.length * 13 + (indicators.length > 4 ? 15 : 0));
+      const level = score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low';
+      const levelClass = score >= 70 ? 'badge-high' : score >= 40 ? 'badge-medium' : 'badge-low';
+      const color = score >= 70 ? 'var(--accent3)' : score >= 40 ? '#ffc832' : 'var(--accent2)';
+
+      const result = document.getElementById('emailResult');
+      result.innerHTML = `
+        <div style="background:rgba(255,107,107,0.05);border:1px solid var(--border);border-radius:12px;padding:2rem;margin-top:1.5rem">
+          <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem">
+            <div class="risk-score-circle" style="border-color:${color};min-width:110px">
+              <span class="score-num" style="color:${color}">${score}%</span>
+              <span class="score-label">Threat Score</span>
+            </div>
+            <div>
+              <h3 style="margin-bottom:0.5rem">Analysis Results</h3>
+              <span class="threat-type-badge ${levelClass}">Risk Level: ${level}</span><br><br>
+              <span style="color:var(--text-muted);font-size:0.9rem">${indicators.length} threat indicator${indicators.length!==1?'s':''} detected</span>
+            </div>
+          </div>
+          <h4 style="margin-bottom:0.75rem">⚠️  Threat Indicators:</h4>
+          <ul class="indicator-list">
+            ${indicators.length ? indicators.map(i => `<li style="gap:0.5rem">${i.icon} ${i.text}</li>`).join('') : '<li style="color:var(--accent2)">✅ No strong phishing indicators detected</li>'}
+          </ul>
+          <div style="margin-top:1.25rem;padding:1rem;background:rgba(0,212,255,0.06);border-radius:8px;border-left:3px solid ${color}">
+            <strong>🤖 AI Recommendation:</strong><br>
+            ${score >= 70 
+              ? '🔴 <strong>DO NOT interact with this email.</strong> This appears to be a phishing attempt. Delete immediately, report to your email provider, and alert your IT/security team.' 
+              : score >= 40 
+              ? '🟡 <strong>Proceed with caution.</strong> This email shows some suspicious characteristics. Verify the sender through official channels before clicking any links or responding.'
+              : '🟢 <strong>Likely safe</strong>, but always verify unexpected requests. When in doubt, contact the sender directly using official contact information.'}
+          </div>
+        </div>`;
+      result.classList.add('visible');
+    }
+
+    // ---- URL DEEP SCAN ----
+    function deepScanURL() {
+      const url = document.getElementById('urlDeep').value.trim();
+      if (!url) { alert('Please enter a URL.'); return; }
+      const ctx = document.getElementById('urlContext').value;
+
+      const checks = [
+        { name: 'HTTPS Protocol', pass: /^https:\/\//i.test(url), tip: 'Use only HTTPS — never enter data on HTTP sites' },
+        { name: 'Domain Reputation', pass: !/\.tk$|\.ml$|\.ga$|\.cf$/i.test(url), tip: 'Free TLDs (.tk, .ml) are widely abused by attackers' },
+        { name: 'URL Length Normal', pass: url.length < 100, tip: 'Extremely long URLs often contain obfuscated redirects' },
+        { name: 'No IP Address', pass: !/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(url), tip: 'Legitimate services use domain names, not raw IPs' },
+        { name: 'No Redirect Tricks', pass: !/@/.test(url), tip: 'The @ symbol in URLs is a redirect trick' },
+        { name: 'No Shortened URL', pass: !/bit\.ly|tinyurl|goo\.gl/i.test(url), tip: 'Expand shortened URLs before visiting' },
+        { name: 'No Brand Spoofing', pass: !/paypa1|g00gle|amaz0n|micros0ft/i.test(url), tip: 'Check for character substitutions like 0 for o' },
+        { name: 'No Suspicious Path', pass: !/login|verify|account|password|secure/i.test(url), tip: 'These path keywords are common in credential-stealing pages' }
+      ];
+
+      const failed = checks.filter(c => !c.pass);
+      const score = Math.round((failed.length / checks.length) * 100);
+      const color = score < 20 ? 'var(--accent2)' : score < 50 ? '#ffc832' : 'var(--accent3)';
+
+      const result = document.getElementById('urlDeepResult');
+      result.innerHTML = `
+        <div style="margin-top:1.5rem;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:12px;padding:2rem">
+          <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem">
+            <div class="risk-score-circle" style="border-color:${color}">
+              <span class="score-num" style="color:${color}">${score}%</span>
+              <span class="score-label">Risk Score</span>
+            </div>
+          </div>
+          <h4 style="margin-bottom:1rem">Security Checks:</h4>
+          ${checks.map(c => `
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.88rem">
+              <span>${c.pass ? '✅' : '❌'}</span>
+              <div>
+                <strong>${c.name}</strong><br>
+                <span style="color:var(--text-muted)">${c.tip}</span>
+              </div>
+            </div>`).join('')}
+          ${ctx ? `<div style="margin-top:1rem;padding:0.75rem;background:rgba(0,212,255,0.06);border-radius:8px;font-size:0.85rem"><strong>Context noted:</strong> ${ctx}</div>` : ''}
+        </div>`;
+      result.classList.add('visible');
+    }
+
+    // ---- RISK SCORE ----
+    const riskQs = [
+      { q: 'Do you use Multi-Factor Authentication (MFA) on your accounts?', weight: 20, tips: ['Enable MFA on email, banking, and social media immediately'] },
+      { q: 'Do you use a password manager?', weight: 15, tips: ['Use Bitwarden (free) or 1Password to manage unique passwords'] },
+      { q: 'Do you regularly update your software and operating system?', weight: 15, tips: ['Enable automatic updates — patches fix critical security holes'] },
+      { q: 'Do you back up your data regularly?', weight: 15, tips: ['Follow the 3-2-1 rule: 3 copies, 2 media types, 1 offsite'] },
+      { q: 'Do you use HTTPS websites for sensitive activities?', weight: 10, tips: ['Always check for the padlock icon in your browser'] },
+      { q: 'Do you use a VPN on public Wi-Fi?', weight: 10, tips: ['Use ProtonVPN or Mullvad on public networks'] },
+      { q: 'Do you know how to identify phishing emails?', weight: 8, tips: ['Take our Phishing Awareness module in the Learning Center'] },
+      { q: 'Is your home Wi-Fi using WPA2 or WPA3 encryption?', weight: 7, tips: ['Check your router settings and upgrade from WEP/WPA1'] }
+    ];
+    let riskAnswers = {};
+
+    function renderRiskQuestions() {
+      const container = document.getElementById('riskQuestions');
+      let html = '';
+      riskQs.forEach((q, i) => {
+        html += `
+          <div style="margin-bottom:1.25rem;padding:1.25rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px">
+            <p style="font-weight:600;margin-bottom:0.75rem;font-size:0.95rem">${i+1}. ${q.q}</p>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+              <button class="btn btn-outline risk-btn" style="font-size:0.82rem;padding:0.5rem 1.25rem" onclick="answerRisk(${i}, 'yes', this)">✅ Yes</button>
+              <button class="btn btn-outline risk-btn" style="font-size:0.82rem;padding:0.5rem 1.25rem" onclick="answerRisk(${i}, 'no', this)">❌ No</button>
+              <button class="btn btn-outline risk-btn" style="font-size:0.82rem;padding:0.5rem 1.25rem" onclick="answerRisk(${i}, 'partial', this)">🔄 Partially</button>
+            </div>
+          </div>`;
+      });
+      html += `<button class="btn btn-primary mt1" onclick="calculateRisk()"><i class="fas fa-calculator"></i> Calculate My Risk Score</button>`;
+      container.innerHTML = html;
+    }
+
+    window.answerRisk = function(idx, val, btn) {
+
+  alert("Clicked: " + val);
+
+  riskAnswers[idx] = val;
+
+  console.log(riskAnswers);
+
+};
+
+    window.calculateRisk = function() {
+      let score = 0;
+      const recommendations = [];
+      riskQs.forEach((q, i) => {
+        const ans = riskAnswers[i];
+        if (ans === 'yes') score += q.weight;
+        else if (ans === 'partial') score += q.weight * 0.5;
+        if (ans === 'no' || ans === 'partial') recommendations.push(q.tips[0]);
+      });
+      score = Math.round(score);
+      const level = score >= 80 ? '🟢 Low Risk' : score >= 55 ? '🟡 Medium Risk' : '🔴 High Risk';
+      const color = score >= 80 ? 'var(--accent2)' : score >= 55 ? '#ffc832' : 'var(--accent3)';
+      const finalResult = document.getElementById('riskFinalResult');
+      finalResult.innerHTML = `
+        <div style="text-align:center;margin-top:2rem;padding:2.5rem;background:rgba(0,0,0,0.2);border-radius:16px;border:1px solid var(--border)">
+          <div class="risk-score-circle" style="border-color:${color};width:150px;height:150px;margin:0 auto 1.5rem">
+            <span class="score-num" style="color:${color};font-size:2.5rem">${score}</span>
+            <span class="score-label">/ 100</span>
+          </div>
+          <h2 style="margin-bottom:0.5rem">${level}</h2>
+          <p style="color:var(--text-muted);margin-bottom:2rem">Based on your responses</p>
+          ${recommendations.length ? `
+            <h4 style="margin-bottom:1rem;text-align:left">🎯 Your Action Plan:</h4>
+            <ul style="list-style:none;text-align:left">
+              ${recommendations.map(r => `<li style="padding:0.6rem 0;border-bottom:1px solid var(--border);color:var(--text-muted);font-size:0.9rem">→ ${r}</li>`).join('')}
+            </ul>` : '<p style="color:var(--accent2)">✅ Excellent! You have strong security practices.</p>'}
+        </div>`;
+      finalResult.style.display = 'block';
+      document.getElementById('riskQuestions').style.display = 'none';
+    };
+
+    renderRiskQuestions();
+
+    // ---- TIPS GENERATOR ----
+    const tipsDB = {
+      home: { phishing: ['Never click links in unsolicited emails — go to the website directly','Check sender email carefully for typos like paypa1.com','Use Gmail\'s "Report Phishing" feature for suspicious emails'], identity: ['Freeze your credit at all 3 bureaus (Equifax, Experian, TransUnion)','Use virtual credit card numbers for online shopping','Monitor your credit report monthly with free tools'], hacking: ['Use a password manager like Bitwarden (free)','Enable 2FA on your email account immediately','Use a passphrase like "Coffee!Sky$Moon2025" — easy to remember, hard to crack'], privacy: ['Use Firefox + uBlock Origin to block trackers','Use Signal for private messaging','Use DuckDuckGo instead of Google for searches'], malware: ['Keep Windows Defender updated — it\'s surprisingly effective','Never download software from unofficial sources','Disable macros in Microsoft Office documents'] },
+      developer: { phishing: ['Implement SPF, DKIM, DMARC on your email domain','Use SSRF protections in web applications','Validate all user input on the server side'], identity: ['Never commit API keys or credentials to Git repositories','Use environment variables for secrets management','Use services like AWS Secrets Manager or HashiCorp Vault'], hacking: ['Enable HTTPS with HSTS on all your web apps','Implement Content Security Policy (CSP) headers','Use parameterized queries to prevent SQL injection'], privacy: ['Implement proper session management and CSRF tokens','Log and monitor for suspicious activity patterns','Follow OWASP Top 10 guidelines in all projects'], malware: ['Scan dependencies with npm audit or Snyk regularly','Use dependency pinning to avoid supply chain attacks','Implement SRI (Subresource Integrity) for CDN assets'] }
+    };
+
+    window.generateTips = function() {
+      const profile = document.getElementById('tipProfile').value;
+      const concern = document.getElementById('tipConcern').value;
+      const baseProfile = tipsDB[profile] || tipsDB['home'];
+      const tips = baseProfile[concern] || baseProfile['phishing'];
+
+      const today = new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'});
+      const result = document.getElementById('tipsResult');
+      result.innerHTML = `
+        <div style="background:rgba(0,212,255,0.05);border:1px solid var(--border);border-radius:12px;padding:2rem">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+            <i class="fas fa-lightbulb" style="color:var(--accent);font-size:1.4rem"></i>
+            <div>
+              <h4 style="margin-bottom:0.1rem">Personalized Security Tips</h4>
+              <p style="color:var(--text-muted);font-size:0.8rem">${today}</p>
+            </div>
+          </div>
+          ${tips.map((tip, i) => `
+            <div style="display:flex;align-items:flex-start;gap:1rem;padding:0.9rem;margin-bottom:0.5rem;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid var(--accent)">
+              <span style="color:var(--accent);font-weight:800;font-size:1.1rem">${i+1}</span>
+              <p style="font-size:0.92rem;line-height:1.6">${tip}</p>
+            </div>`).join('')}
+          <div style="margin-top:1.25rem;text-align:center">
+            <a href="learning.html" class="btn btn-outline" style="font-size:0.88rem"><i class="fas fa-graduation-cap"></i> Continue Learning</a>
+          </div>
+        </div>`;
+      result.style.display = 'block';
+    };
+  </script>
+</body>
+</html>
+

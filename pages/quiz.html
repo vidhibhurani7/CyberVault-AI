@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Center - CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html" class="active">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="badges.html"> Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-trophy"></i> Quiz Center</div>
+    <h1>Test Your <span class="accent">Knowledge</span></h1>
+    <p>Complete quizzes to earn cybersecurity certificates. Track your progress and master key concepts.</p>
+  </section>
+
+  <!-- QUIZ SELECTION -->
+  <div class="section" id="quizSelect" style="max-width:900px">
+    <div class="section-header">
+      <h2>Choose a <span class="accent">Quiz</span></h2>
+      <p>Select your level and category to begin</p>
+    </div>
+    <div id="quizCards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem"></div>
+  </div>
+
+  <!-- USERNAME -->
+  <div class="section" id="nameSection" style="display:none;max-width:500px">
+    <div class="tool-card glass" style="text-align:center">
+      <div style="font-size:3rem;margin-bottom:1rem">🎯</div>
+      <h3 id="quizNameTitle" style="margin-bottom:0.5rem">Ready to Begin?</h3>
+      <p class="text-muted mb2">Enter your name to personalize your certificate</p>
+      <div class="input-group">
+        <input type="text" id="playerName" placeholder="Your full name..." style="text-align:center"/>
+      </div>
+      <button class="btn btn-primary mt1" onclick="startQuiz()"><i class="fas fa-play"></i> Start Quiz</button>
+    </div>
+  </div>
+
+  <!-- QUIZ ACTIVE -->
+  <div class="section" id="quizActive" style="display:none;max-width:700px">
+    <div class="quiz-wrap">
+      <div class="quiz-card glass">
+        <div class="quiz-progress">
+          <span id="qNum">Question 1 of 10</span>
+          <span id="qScore">Score: 0</span>
+        </div>
+        <div class="quiz-progress-bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="quiz-q" id="quizQuestion"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div id="quizFeedback" style="display:none;margin-top:1rem;padding:1rem;border-radius:8px;font-size:0.9rem"></div>
+        <div style="display:flex;justify-content:flex-end;margin-top:1.5rem">
+          <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="section" id="quizResult" style="display:none;max-width:700px">
+    <div class="quiz-result active glass">
+      <div class="score-big" id="finalScore">0/10</div>
+      <h2 id="resultTitle" style="margin-bottom:0.5rem">Quiz Complete!</h2>
+      <p class="text-muted" id="resultDesc" style="margin-bottom:2rem"></p>
+      <div id="certArea"></div>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem">
+        <button class="btn btn-primary" onclick="downloadCert()"><i class="fas fa-download"></i> Download Certificate</button>
+        <button class="btn btn-outline" onclick="restartQuiz()"><i class="fas fa-redo"></i> Try Again</button>
+        <a href="quiz.html" class="btn btn-outline"><i class="fas fa-list"></i> All Quizzes</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom"><p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const QUIZZES = {
+      beginner: {
+        name: 'Cybersecurity Fundamentals',
+        level: 'Beginner',
+        color: '#00ffb3',
+        icon: '🛡️',
+        questions: [
+          { q: 'What is phishing?', a: 1, options: ['A type of computer virus', 'A social engineering attack via email/SMS to steal information', 'A network scanning technique', 'A password cracking method'] },
+          { q: 'What does HTTPS stand for?', a: 0, options: ['HyperText Transfer Protocol Secure', 'High-Traffic Transfer Protocol System', 'HyperText Transmission Protected Service', 'Hosted Transfer Protocol Secure'] },
+          { q: 'What is a firewall?', a: 2, options: ['An antivirus software', 'A type of encryption', 'A network security system that monitors and controls traffic', 'A password manager'] },
+          { q: 'Which of these is the strongest password?', a: 3, options: ['password123', 'John1990', 'abc12345!', 'T#9mK!x$2vR@pQ'] },
+          { q: 'What is malware?', a: 1, options: ['Legitimate software that slows down your computer', 'Malicious software designed to harm computers or steal data', 'A type of hardware failure', 'An email spam filter'] },
+          { q: 'What does MFA stand for?', a: 0, options: ['Multi-Factor Authentication', 'Multi-File Access', 'Multiple Firewall Authorization', 'Master File Authentication'] },
+          { q: 'What is a VPN used for?', a: 2, options: ['Speeding up internet connection', 'Blocking advertisements', 'Encrypting internet traffic and hiding IP address', 'Scanning for viruses'] },
+          { q: 'Which port does HTTPS use by default?', a: 1, options: ['80', '443', '22', '3389'] },
+          { q: 'What is ransomware?', a: 3, options: ['Software that creates random passwords', 'A type of network scanner', 'An email filtering system', 'Malware that encrypts files and demands ransom'] },
+          { q: 'What is social engineering?', a: 0, options: ['Manipulating people psychologically to gain unauthorized access', 'Building social media platforms', 'Programming social media bots', 'Network protocol optimization'] }
+        ]
+      },
+      intermediate: {
+        name: 'Network & Web Security',
+        level: 'Intermediate',
+        color: '#ffc832',
+        icon: '🌐',
+        questions: [
+          { q: 'What is SQL Injection?', a: 1, options: ['A database backup technique', 'Inserting malicious SQL code into input fields to manipulate databases', 'A SQL performance optimization method', 'A way to encrypt database entries'] },
+          { q: 'What does XSS stand for?', a: 2, options: ['Extended Security System', 'External Style Sheets', 'Cross-Site Scripting', 'Cross-System Scan'] },
+          { q: 'What is a Man-in-the-Middle (MITM) attack?', a: 0, options: ['An attacker secretly intercepts communication between two parties', 'Attacking a server from multiple locations simultaneously', 'A type of password cracking method', 'Injecting code into a middle-tier application'] },
+          { q: 'What is a DMZ in network security?', a: 3, options: ['Demilitarized Mining Zone', 'Digital Memory Zone', 'Dynamic Management Zone', 'A network segment between internal network and internet'] },
+          { q: 'Which OWASP Top 10 category refers to SQL injection?', a: 1, options: ['Broken Access Control', 'Injection', 'Security Misconfiguration', 'Cryptographic Failures'] },
+          { q: 'What is a zero-day vulnerability?', a: 2, options: ['A vulnerability that takes zero days to patch', 'A new type of DDoS attack', 'A vulnerability exploited before the vendor knows about it', 'A security patch released on day zero'] },
+          { q: 'What is ARP spoofing?', a: 0, options: ['Sending fake ARP messages to link attacker MAC to legitimate IP', 'A technique to speed up ARP resolution', 'An ARP cache management tool', 'A protocol for secure ARP communication'] },
+          { q: 'What tool is commonly used for network port scanning?', a: 3, options: ['Wireshark', 'Metasploit', 'Burp Suite', 'Nmap'] },
+          { q: 'What does CSRF stand for?', a: 1, options: ['Client-Side Request Forgery', 'Cross-Site Request Forgery', 'Cross-System Remote Failure', 'Centralized Security Request Framework'] },
+          { q: 'What is a WAF?', a: 2, options: ['Wide Area Framework', 'Web Authentication Filter', 'Web Application Firewall', 'Wireless Access Function'] }
+        ]
+      },
+      advanced: {
+        name: 'Advanced Cybersecurity',
+        level: 'Advanced',
+        color: '#ff6b6b',
+        icon: '💀',
+        questions: [
+          { q: 'What is the MITRE ATT&CK framework?', a: 0, options: ['A knowledge base of adversary tactics and techniques based on real-world observations', 'A penetration testing tool', 'An encryption algorithm standard', 'A network monitoring protocol'] },
+          { q: 'In cryptography, what is a nonce?', a: 2, options: ['A type of cipher key', 'An authentication token', 'A number used only once to prevent replay attacks', 'A hash function output'] },
+          { q: 'What is a supply chain attack?', a: 1, options: ['A physical attack on server hardware', 'Compromising software by targeting third-party dependencies or updates', 'DDoS attack on e-commerce sites', 'Social engineering of supply company employees'] },
+          { q: 'What is memory forensics?', a: 3, options: ['Analyzing hard drive storage', 'Recovering deleted files', 'Analyzing network packet captures', 'Analyzing volatile RAM contents to find malware or artifacts'] },
+          { q: 'What does SSRF stand for?', a: 0, options: ['Server-Side Request Forgery', 'Secure Site Request Framework', 'Session-Side Response Failure', 'System Security Response Function'] },
+          { q: 'What is lateral movement in cyber attacks?', a: 2, options: ['Moving files between network shares', 'Changing IP addresses during an attack', 'Moving through a network after initial compromise to reach targets', 'Switching between attack vectors'] },
+          { q: 'What is a Golden Ticket attack?', a: 1, options: ['Phishing attack using prize emails', 'Forging Kerberos TGT tickets using stolen KRBTGT hash', 'SQL injection using encoded values', 'Privilege escalation in Linux systems'] },
+          { q: 'What is the Shared Responsibility Model in cloud security?', a: 3, options: ['Sharing passwords between team members securely', 'Joint security audits between companies', 'Splitting cloud costs between departments', 'Cloud provider secures infrastructure; customer secures their data/apps'] },
+          { q: 'What is process injection in malware?', a: 0, options: ['Hiding malicious code within a legitimate running process', 'Injecting SQL into process databases', 'Overloading a process with data', 'Creating a new malicious system process'] },
+          { q: 'What is the difference between IDS and IPS?', a: 2, options: ['IDS is for internal networks, IPS for external', 'IDS uses signatures, IPS uses anomalies', 'IDS detects and alerts; IPS detects and actively blocks threats', 'IDS is hardware-based, IPS is software-based'] }
+        ]
+      }
+    };
+
+    let currentQuiz = null, currentQ = 0, score = 0, answered = false;
+
+    function renderQuizCards() {
+      const container = document.getElementById('quizCards');
+      container.innerHTML = Object.entries(QUIZZES).map(([key, q]) => `
+        <div class="feature-card glass" onclick="selectQuiz('${key}')" style="cursor:pointer">
+          <div style="font-size:2.5rem;margin-bottom:1rem">${q.icon}</div>
+          <h3>${q.name}</h3>
+          <div style="margin:0.75rem 0;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="topic-pill" style="color:${q.color}">${q.level}</span>
+            <span class="topic-pill">📝 ${q.questions.length} Questions</span>
+            <span class="topic-pill">🏆 Certificate</span>
+          </div>
+          <button class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.25rem;margin-top:0.5rem">Start Quiz</button>
+        </div>`).join('');
+    }
+
+    window.selectQuiz = function(key) {
+      currentQuiz = { key, ...QUIZZES[key] };
+      document.getElementById('quizNameTitle').textContent = currentQuiz.name;
+      document.getElementById('quizSelect').style.display = 'none';
+      document.getElementById('nameSection').style.display = 'block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+
+    window.startQuiz = function() {
+      const name = document.getElementById('playerName').value.trim();
+      if (!name) { alert('Please enter your name.'); return; }
+      currentQuiz.playerName = name;
+      currentQ = 0; score = 0;
+      document.getElementById('nameSection').style.display = 'none';
+      document.getElementById('quizActive').style.display = 'block';
+      renderQuestion();
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+
+    function renderQuestion() {
+      const q = currentQuiz.questions[currentQ];
+      const total = currentQuiz.questions.length;
+      document.getElementById('qNum').textContent = `Question ${currentQ+1} of ${total}`;
+      document.getElementById('qScore').textContent = `Score: ${score}`;
+      document.getElementById('progressFill').style.width = ((currentQ/total)*100) + '%';
+      document.getElementById('quizQuestion').textContent = q.q;
+      document.getElementById('quizFeedback').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+      answered = false;
+      document.getElementById('quizOptions').innerHTML = q.options.map((opt, i) =>
+        `<button class="quiz-option" onclick="selectOption(${i})">${opt}</button>`
+      ).join('');
+    }
+
+    window.selectOption = function(idx) {
+      if (answered) return;
+      answered = true;
+      const q = currentQuiz.questions[currentQ];
+      const opts = document.querySelectorAll('.quiz-option');
+      opts.forEach(o => o.disabled = true);
+      opts[idx].classList.add(idx === q.a ? 'correct' : 'wrong');
+      if (idx !== q.a) opts[q.a].classList.add('correct');
+      if (idx === q.a) score++;
+      const fb = document.getElementById('quizFeedback');
+      fb.style.display = 'block';
+      fb.style.background = idx === q.a ? 'rgba(0,255,179,0.08)' : 'rgba(255,107,107,0.08)';
+      fb.style.border = `1px solid ${idx === q.a ? 'var(--accent2)' : 'var(--accent3)'}`;
+      fb.style.color = idx === q.a ? 'var(--accent2)' : 'var(--accent3)';
+      fb.textContent = idx === q.a ? '✅ Correct! Well done.' : `❌ Incorrect. The correct answer was: "${q.options[q.a]}"`;
+      document.getElementById('nextBtn').style.display = 'inline-flex';
+    };
+
+    window.nextQuestion = function() {
+      currentQ++;
+      if (currentQ < currentQuiz.questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    };
+
+    function showResult() {
+      document.getElementById('quizActive').style.display = 'none';
+      document.getElementById('quizResult').style.display = 'block';
+      const total = currentQuiz.questions.length;
+      const pct = Math.round((score/total)*100);
+      const passed = pct >= 70;
+      document.getElementById('finalScore').textContent = `${score}/${total}`;
+      document.getElementById('resultTitle').textContent = passed ? '🏆 Congratulations!' : '📚 Keep Practicing!';
+      document.getElementById('resultDesc').textContent = passed
+        ? `You scored ${pct}% and earned your certificate!`
+        : `You scored ${pct}%. Score 70% or higher to earn a certificate. Try again!`;
+      if (passed) {
+        const date = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+        document.getElementById('certArea').innerHTML = `
+          <div class="certificate-wrap active" id="certDisplay">
+            <div class="cert-title">CyberVault AI</div>
+            <div class="cert-seal">🏅</div>
+            <div class="cert-title">Certificate of Completion</div>
+            <div class="cert-name">${currentQuiz.playerName}</div>
+            <div class="cert-sub">has successfully completed</div>
+            <h2 style="color:var(--accent);margin-bottom:0.5rem">${currentQuiz.name}</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem">Level: ${currentQuiz.level} | Score: ${score}/${total} (${pct}%)</p>
+            <div style="display:flex;justify-content:space-around;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+              <div style="text-align:center"><p style="font-size:0.75rem;color:var(--text-muted)">Date Issued</p><strong>${date}</strong></div>
+              <div style="text-align:center"><p style="font-size:0.75rem;color:var(--text-muted)">Issued By</p><strong style="color:var(--accent)">CyberVault AI</strong></div>
+              
+            </div>
+          </div>`;
+      }
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    window.downloadCert = function() {
+      const cert = document.getElementById('certDisplay');
+      if (!cert) { alert('Complete the quiz with 70%+ to earn a certificate!'); return; }
+      // Print-based download
+      const win = window.open('', '_blank');
+      win.document.write(`<!DOCTYPE html><html><head><style>
+        body{background:#0A192F;color:#fff;font-family:'Segoe UI',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
+        .cert{max-width:700px;padding:3rem;background:linear-gradient(135deg,#0A192F,#112240);border:2px solid #00D4FF;border-radius:16px;text-align:center;box-shadow:0 0 40px rgba(0,212,255,0.2)}
+        h1{color:#00D4FF;font-size:2rem}p{color:#8892b0}strong{color:#fff}
+        @media print{body{-webkit-print-color-adjust:exact}}
+      </style></head><body>
+      <div class="cert">${cert.innerHTML}</div>
+      </body></html>`);
+      win.document.close();
+      win.focus();
+      setTimeout(() => win.print(), 500);
+    };
+
+    window.restartQuiz = function() {
+      currentQ = 0; score = 0;
+      document.getElementById('quizResult').style.display = 'none';
+      document.getElementById('quizActive').style.display = 'block';
+      renderQuestion();
+    };
+
+    renderQuizCards();
+  </script>
+</body>
+</html>
+

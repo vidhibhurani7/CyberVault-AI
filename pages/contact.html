@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - CyberVault AI</title>
+  <link rel="stylesheet" href="../assets/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand" onclick="location.href='../index.html'"><i class="fas fa-shield-halved"></i><span>CyberVault <span class="accent">AI</span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="assistant.html">AI Assistant</a></li>
+      <li><a href="tools.html">Security Tools</a></li>
+      <li><a href="threat.html">Threat Analyzer</a></li>
+      <li><a href="learning.html">Learning Center</a></li>
+      <li><a href="quiz.html">Quiz Center</a></li>
+      <li><a href="news.html">Cyber News</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+	  <li><a href="badges.html"> Badges</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-badge"><i class="fas fa-envelope"></i> Get in Touch</div>
+    <h1>Contact <span class="accent">Us</span></h1>
+    <p>Have questions about cybersecurity? Want to collaborate? We'd love to hear from you.</p>
+  </section>
+
+  <div class="section" style="max-width:1100px">
+    <div class="contact-grid">
+      <!-- INFO -->
+      <div>
+        <h3 style="margin-bottom:1rem">Let's Connect 🔐</h3>
+        <p>Whether you have a cybersecurity question, feedback about CyberVault AI reach out!</p>
+        <div style="margin:2rem 0">
+          <div class="contact-item"><i class="fas fa-envelope"></i><div><strong>Email</strong><br><span style="font-size:0.85rem">vidhibhurani@gmail.com</span></div></div>
+          <div class="contact-item"><i class="fab fa-github"></i><div><strong>GitHub</strong><br><span style="font-size:0.85rem">github.com/vidhibhurani7</span></div></div>
+          <div class="contact-item"><i class="fab fa-linkedin"></i><div><strong>LinkedIn</strong><br><span style="font-size:0.85rem">linkedin.com/in/vidhibhurani7</span></div></div>
+        </div>
+        <div class="glass" style="padding:1.5rem">
+          <h4 style="color:var(--accent);margin-bottom:0.75rem">🤖 Get Instant Help</h4>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem">For immediate cybersecurity questions, use our AI Assistant, available 24/7!</p>
+          <a href="assistant.html" class="btn btn-primary" style="font-size:0.88rem"><i class="fas fa-robot"></i> Ask CyberVault AI</a>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form glass">
+        <h3 style="margin-bottom:1.5rem">Send a Message</h3>
+        <div id="contactFormWrap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="firstName" placeholder="John"/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="lastName" placeholder="Doe"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="contactEmail" placeholder="john@example.com"/>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select id="contactSubject">
+              <option value="">Select a subject...</option>
+              <option>Cybersecurity Question</option>
+              <option>Project Collaboration</option>
+              <option>IBM Bootcamp Inquiry</option>
+              <option>Bug Report / Feedback</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea id="contactMsg" rows="5" placeholder="How can we help you?"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="submitForm()" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <i class="fas fa-circle-check" style="color:var(--accent2)"></i>
+          <h3 style="margin-bottom:0.5rem;color:var(--accent2)">Message Sent!</h3>
+          <p style="color:var(--text-muted)">Thank you for reaching out. We'll get back to you within 24 hours. 🔐</p>
+          <a href="#" class="btn btn-outline mt2" onclick="resetForm()">Send Another Message</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-top:5rem">
+      <div class="section-header">
+        <h2>Frequently Asked <span class="accent">Questions</span></h2>
+      </div>
+      <div id="faqList" style="max-width:800px;margin:0 auto"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-brand" style="margin-bottom:1rem"><i class="fas fa-shield-halved"></i> CyberVault <span class="accent">AI</span></div>
+        <p>Your Intelligent Cyber Defense Platform.</p>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="../index.html">Home</a></li><li><a href="assistant.html">AI Assistant</a></li><li><a href="tools.html">Tools</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="learning.html">Learning Center</a></li><li><a href="quiz.html">Quiz Center</a></li><li><a href="news.html">Cyber News</a></li></ul></div>
+      <div><h4>Connect</h4><div class="social-links"><a href="https://github.com/vidhibhurani7" target="_blank">
+    <i class="fab fa-github"></i>
+</a>
+
+<a href="https://linkedin.com/in/vidhibhurani7" target="_blank">
+    <i class="fab fa-linkedin"></i>
+</a>
+<a href="mailto:vidhibhurani@gmail.com">
+    <i class="fas fa-envelope"></i>
+</a></div>
+<p style="margin-top:1rem;font-size:0.85rem"><p style="margin-top:1rem;font-size:0.85rem">
+Developed by Vidhi Bhurani for the IBM Cybersecurity Bootcamp 🏆
+</p>
+</p>
+</div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 CyberVault AI. All rights reserved. | Protect. Detect. Learn.</p></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const FAQS = [
+      { q: 'Is CyberVault AI free to use?', a: 'Yes! CyberVault AI is completely free. It was developed for everyone to use for educational purposes.' },
+      { q: 'How accurate is the Threat Analyzer?', a: 'The Threat Analyzer provides educational demonstrations of threat analysis techniques. It uses pattern matching and known phishing/malware indicators. For production security decisions, always use enterprise-grade tools.' },
+      { q: 'Can I use the certificates from the quizzes professionally?', a: 'CyberVault AI certificates demonstrate your completion of our educational quizzes and can be shared on portfolios. For industry-recognized credentials, pursue certifications like CompTIA Security+, CEH, or CISSP.' },
+      { q: 'Does CyberVault AI store my data?', a: 'All analysis is performed client-side in your browser. No emails, passwords, or URLs you enter are sent to any server. Your privacy is our priority.' },
+      { q: 'What cybersecurity certifications should I pursue?', a: 'For beginners: CompTIA Security+, CC (Certified in Cybersecurity by ISC2 — free!). Intermediate: CEH, CompTIA CySA+. Advanced: CISSP, OSCP, CISM. Ask our AI Assistant for personalized recommendations!' },
+    ];
+
+    function renderFAQs() {
+      document.getElementById('faqList').innerHTML = FAQS.map((f, i) => `
+        <div class="glass" style="margin-bottom:0.75rem;overflow:hidden">
+          <div onclick="toggleFAQ(${i})" style="padding:1.25rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem">
+            <h4 style="font-size:0.95rem;font-weight:600">${f.q}</h4>
+            <i class="fas fa-chevron-down faq-icon-${i}" style="color:var(--accent);flex-shrink:0;transition:0.3s"></i>
+          </div>
+          <div id="faq-${i}" style="display:none;padding:0 1.25rem 1.25rem;color:var(--text-muted);font-size:0.9rem;line-height:1.7;border-top:1px solid var(--border);padding-top:1rem">${f.a}</div>
+        </div>`).join('');
+    }
+
+    window.toggleFAQ = function(i) {
+      const el = document.getElementById('faq-' + i);
+      const icon = document.querySelector('.faq-icon-' + i);
+      const isOpen = el.style.display === 'block';
+      el.style.display = isOpen ? 'none' : 'block';
+      icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    };
+
+    window.submitForm = function() {
+      const first = document.getElementById('firstName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const msg = document.getElementById('contactMsg').value.trim();
+      if (!first || !email || !msg) { alert('Please fill in all required fields.'); return; }
+      document.getElementById('contactFormWrap').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('active');
+    };
+
+    window.resetForm = function() {
+      document.getElementById('firstName').value = '';
+      document.getElementById('lastName').value = '';
+      document.getElementById('contactEmail').value = '';
+      document.getElementById('contactMsg').value = '';
+      document.getElementById('contactFormWrap').style.display = 'block';
+      document.getElementById('formSuccess').classList.remove('active');
+    };
+
+    renderFAQs();
+  </script>
+</body>
+</html>
+
