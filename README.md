@@ -75,7 +75,7 @@
 
 **Vidhi Bhurani**
 
-**BCA Student | Cybersecurity Enthusiast**
+**Cybersecurity Enthusiast**
 
 - **GitHub:** [vidhibhurani7](https://github.com/vidhibhurani7)
 - **LinkedIn:** [Vidhi Bhurani](https://linkedin.com/in/vidhibhurani7)
